@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/css/bootstrap.min.css'>
+  </head>
+  <body>
+        <script src="https://cdn.rawgit.com/download/glyphicons/0.1.0/glyphicons.js"></script>
+
+    <div class="collapse" id="search">
+      <div class="bg-grey p-4">
+        <form class="form-inline my-2 my-lg-12">
+          <input class="form-control mr-sm-12" type="search" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-12" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Fantipper</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              {{!-- <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li> --}}
+              <li class="nav-item">
+                <a class="nav-link" href="/explore">Explore</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/learn">Learn</a>
+              </li>
+            </ul>
+            {{# if login}} 
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item"><a href="#"><span class="glyphicon glyphicon-user"></span> Messages</a></li>
+              <li class="nav-item"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Promotions</a></li>
+              <li class="nav-item"></li>
+                <li class="nav-item">
+                  
+                  <div class="dropdown">
+                    {{name}}
+                    <img src="/images/fantipper.jpg" alt="..." class="rounded-circle" height="50px" width="50px">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="caret"></span></a>
+                    {{!-- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> --}}
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Tip History</a></li>
+                      <li><a href="/profile">Your Profile</a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a href="#">Become Creator</a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a href="/logout">Logout</a></li>
+                    </ul>
+                  </div>
+                </li>
+            </ul>
+              {{!-- <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                  <a href="/mesages" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-envelope"></span> 
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/offers" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-certificate"></span> 
+                  </a>
+                </li>
+              </ul> --}}
+            {{else}}
+              <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                  <a href="/login" class="btn btn-light">LOG IN</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/signup" class="btn btn-success">SIGN UP</a>
+                </li>
+                
+              </ul>
+            {{/if}}
+            </div>
+
+            
+          <a href="#search" class="btn btn-info" data-toggle="collapse">Search</a>
+
+          {{!-- <div class="pos-f-t"> --}}
+
+            {{!-- <nav class="navbar navbar-dark bg-dark"> --}}
+              {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" >
+                <span class="glyphicon glyphicon-search"></span>
+              </button> --}}
+            {{!-- </nav> --}}
+          {{!-- </div> --}}
+        </nav>
+
+    {{{body}}}
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/bootstrap.min.js'></script>
+    <script src="/js/glyphicons.js"></script>
+  </body>
+</html>
