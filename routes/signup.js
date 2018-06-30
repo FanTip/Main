@@ -7,12 +7,14 @@ var passport = require('passport');
 router.use(csrfProtection);
 
 router.use('/', notLoggedIn, function(req, res, next){
+  console.log('var: ', req.session.errors);
+  
   next();
 });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('signup', { title: 'Signup', csrfToken : req.csrfToken()});
+  res.render('signup', { title: 'Signup', csrfToken : req.csrfToken(), messages : req.session.errors});
 });
 
 // authenticate user

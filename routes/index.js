@@ -5,12 +5,16 @@ var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    console.log('index: ', req.user);
+    var username;
+    var imagepath;
+    if(req.user != undefined){
+        console.log('name: ', req.user);
+        username = req.user.name;
+        imagepath = req.user.imagepath;
+    }
     var objs = [];
-  // if(req.user.name == 'undefined'){
-  //   username = "f";
-  // }else{
-  //   username = "req.user.name";
-    // }
+  
     fs.readFile('public\\javascripts\\support.js', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
@@ -21,7 +25,12 @@ router.get('/', function(req, res, next) {
              objs.push(datajson.data[i].imagepath);
         }
         console.log(objs[2]);
-        res.render('index', { title: 'Fantipper', objects: objs });
+        res.render('index', { 
+            title: 'Fantipper', 
+            objects: objs,
+            name : username,
+            imagePath : imagepath
+        });
     });
     
     //res.render('index', { title: 'Fantipper', objects: objs });

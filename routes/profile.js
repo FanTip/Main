@@ -13,7 +13,8 @@ router.post('/', isLoggedIn, function(req, res, next){
     var profileUser = req.newUser || req.user;
     var query = {email : profileUser.email};
     console.log(profileUser);
-    console.log('desc', req.body.des);
+    var email = req.user.email.substr(0, req.user.email.indexOf('@'));
+    console.log('desc', req.body.email.split("@"));
     var newDesc = {description : req.body.des}
     User.findOneAndUpdate(query, newDesc, function(err, doc){
         if(err){
@@ -21,10 +22,7 @@ router.post('/', isLoggedIn, function(req, res, next){
         }
         console.log('doc',doc);
         res.render('profile', { title: 'profile ', 
-                            name: doc.name , 
-                            email : doc.email ,
-                            description: doc.description,
-                            file: doc.imagepath ,
+                            url: email,
                             csrfToken : req.csrfToken()
         });
     });
@@ -33,12 +31,13 @@ router.post('/', isLoggedIn, function(req, res, next){
 
 /* GET home page. */
 router.get('/',isLoggedIn, function(req, res, next) {
-    console.log('req: ', req.user.name);
+    console.log('req:ff ', req.user.name);
+    console.log('new image', req.user.imagepath);
+    var email = req.user.email.substr(0, req.user.email.indexOf('@'));
+    console.log(email);
     res.render('profile', { title: 'profile ', 
-                            name: req.user.name || req.newUser.name, 
-                            email : req.user.email || req.newUser.email,
-                            description: req.user.description || req.newUser.description,
-                            file: req.user.imagepath || req.newUser.imagepath,
+                            
+                            url: email,
                             csrfToken : req.csrfToken()
     });
     console.log('id ', req.newUser);

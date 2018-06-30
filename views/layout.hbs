@@ -1,11 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='myApp' ng-controller='mycontroller'>
   <head>
     <title>{{title}}</title>
+    {{!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> --}}
+    <link href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/css/bootstrap.min.css'/>
+    <link rel='stylesheet' href='/stylesheets/fanpagestyle.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="/javascripts/setting_1.js"></script>
   </head>
   <body>
+
+    <div class="modal fade" id="createCreatorProfile" tabindex="-1" role="dialog" aria-labelledby="createCreatorProfileLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Creating a Creators Profile!</h4>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <form action="/creatorprofile/create" method="POST">
+                                        <div class="form-group">
+                                            <label for="currentpassword">Current Password</label>
+                                            <input type="password" name="currentpassword" id="currentpassword" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newpassword">New Password</label>
+                                            <input type="password" name="newpassword" id="newpassword" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmpassword">Confirm Password</label>
+                                            <input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
+                                        </div>
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        <button type="reset" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                        
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
         <script src="https://cdn.rawgit.com/download/glyphicons/0.1.0/glyphicons.js"></script>
 
     <div class="collapse" id="search">
@@ -36,43 +83,30 @@
             </ul>
             {{# if login}} 
             <ul class="nav navbar-nav navbar-right">
-              <li class="nav-item"><a href="#"><span class="glyphicon glyphicon-user"></span> Messages</a></li>
-              <li class="nav-item"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Promotions</a></li>
+              <li class="nav-item border"><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
+              <li class="nav-item border"><a href="#"><span class="glyphicon glyphicon-asterisk"></span></a></li>
               <li class="nav-item"></li>
                 <li class="nav-item">
-                  
                   <div class="dropdown">
-                    {{name}}
-                    <img src="/images/fantipper.jpg" alt="..." class="rounded-circle" height="50px" width="50px">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                      <span class="caret"></span></a>
+                    <img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
                     {{!-- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> --}}
-                    <span class="caret"></span></button>
+                    </button>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Tip History</a></li>
-                      <li><a href="/profile">Your Profile</a></li>
+                      <li><p class="dropdown-item disabled">Logged in as <strong>{{name}}</strong></p></li>
                       <div class="dropdown-divider"></div>
-                      <li><a href="#">Become Creator</a></li>
+                      <li><a href="#"> <i class="fa fa-chart-area"></i> &#160; Tip History</a></li>
+                      <li><a href="/profile"> <span class="glyphicon glyphicon-user"></span> &#160; Your Profile</a></li>
                       <div class="dropdown-divider"></div>
-                      <li><a href="/logout">Logout</a></li>
+                      <li><a href="#" data-toggle="modal" data-target="#createCreatorProfile" > <span class="glyphicon glyphicon-plus-sign"></span> &#160; Become Creator</a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> &#160; Logout</a></li>
                     </ul>
                   </div>
                 </li>
             </ul>
-              {{!-- <ul class="navbar-nav my-2 my-lg-0">
-                <li class="nav-item">
-                  <a href="/mesages" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-envelope"></span> 
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/offers" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-certificate"></span> 
-                  </a>
-                </li>
-              </ul> --}}
             {{else}}
-              <ul class="navbar-nav my-2 my-lg-0">
+              <ul class="navbar-nav navbar-right my-2 my-lg-0">
                 <li class="nav-item">
                   <a href="/login" class="btn btn-light">LOG IN</a>
                 </li>
@@ -85,7 +119,7 @@
             </div>
 
             
-          <a href="#search" class="btn btn-info" data-toggle="collapse">Search</a>
+          <a href="#search" class="btn btn-info" data-toggle="collapse" style="margin-left:1%;">Search</a>
 
           {{!-- <div class="pos-f-t"> --}}
 
@@ -100,6 +134,6 @@
     {{{body}}}
     <script src='/js/jquery.min.js'></script>
     <script src='/js/bootstrap.min.js'></script>
-    <script src="/js/glyphicons.js"></script>
+
   </body>
 </html>

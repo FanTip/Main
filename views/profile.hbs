@@ -4,44 +4,101 @@
         <dir class="col-sm-3">
             <ul class="list-group">
                 <li class="list-group">
-                    <span><img src="{{file}}" alt="..." class="rounded-circle" height="50px" width="50px">
-                    <a href="/editImage">Edit Image</a></span>
+                    <span><img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px">
+                    <a href="/editImage" class="glyphicon glyphicon-pencil"></a></span>
                     {{name}}
                 </li>
                 <li class="list-group">
                     <a href="">Tip History</a>
                 </li>
                 <li class="list-group">
-                    <a href="">Edit Profile</a>
+                    <a href="/editfanprofile">Edit Profile</a>
                 </li>
                 <div class="dropdown-divider"></div>
                 <li class="list-group">
-                    <a href="">Add Creators Profile</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCreatorProfile" >Add Creators Profile</button>
                 </li>
             </ul>
         </dir>
         <div class="col-sm-9 ">
-            <h2>Edit Profile</h2>
+            <h2>Profile</h2>
                 <form action="/profile" class="" method="POST">
                     <div class="form-group">
-                        <label for="name">NAME</label> <br>
-                        <input type="name" class="form-control" name="name" id="name" value="{{name}}">
+                        <label for="name">Name</label> <br>
+                        <input type="name" readonly class="form-control" name="name" id="name" value="{{name}}">
                     </div>
                     <div class="form-group">
-                        <label for="email">EMAIL</label> <br>
-                        <input type="email" class="form-control" name="email" id="email" value="{{email}}">
+                        <label for="email">Email</label> <br>
+                        <input type="email" readonly class="form-control" name="email" id="email" value="{{email}}">
                     </div>
                     <div class="form-group">
                         <label for="des">Description</label> <br>
                         {{# if description }}
-                            <input type="text" name="des" class="form-control" id="des" value="{{description}}">
+                            <input type="text" readonly name="des" class="form-control" id="des" value="{{description}}">
                         {{else}}
-                            <input type="text" class="form-control" name="des" id="des" placeholder="Tell us a little bit about you!">
+                            <input type="text" readonly class="form-control" name="des" id="des" placeholder="Tell us a little bit about you!">
                         {{/if}}
                         <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     </div>
-                    <button class="btn btn-primary">Save</button>
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">URL</label>
+                        <div class="col-sm-10">
+                            <span><input type="text" readonly class="form-control-plaintext" id="staticEmail" value="fantipper.com/{{url}}">
+                            <button onclick="copyFunction()" class="btn btn-primary">Copy</button></span>
+                        </div>
+                    </div>
+                    <a href="/editfanprofile" class="btn btn-primary">Edit Fan Profile</a>
                 </form>
         </div>
     </div>
+
+    <div class="modal fade" id="createCreatorProfile" tabindex="-1" role="dialog" aria-labelledby="createCreatorProfileLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Creating a Creators Profile!</h4>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <form action="/creatorprofile/create" method="POST">
+                                        <div class="form-group">
+                                            <label for="currentpassword">Current Password</label>
+                                            <input type="password" name="currentpassword" id="currentpassword" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newpassword">New Password</label>
+                                            <input type="password" name="newpassword" id="newpassword" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmpassword">Confirm Password</label>
+                                            <input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
+                                        </div>
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        <button type="reset" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                        
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
 </div>
+<script>
+function copyFunction() {
+  var copyText = document.getElementById("staticEmail");
+  copyText.select();
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>

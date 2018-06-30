@@ -31,6 +31,7 @@ passport.use('local.signup', new LocalStrategy({
             messages.push(error.msg);
             req.session.errors = error.msg + '\n' ;
         });
+        console.log('errors: ', errors);
         return done(null, false, req.flash('error', messages));
     }
     //finding the user in the database
@@ -51,7 +52,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.name = req.param('name');
         newUser.messages = null;
         newUser.offers = null;
-        newUser.imagepath = null;
+        newUser.imagepath = '/images/example.jpg';
         newUser.description = 'Tell us little bit about yourself';
         
         console.log(req.param('name'));

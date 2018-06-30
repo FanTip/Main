@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const validator = require('express-validator');
+const exphbs = require('express-handlebars');
 var icons = require('glyphicons');
 
 require('./config/passport');
@@ -24,12 +25,15 @@ var logoutRouter = require('./routes/logout');
 var exploreRouter = require('./routes/explore');
 var learnRouter = require('./routes/learn');
 var editImage = require('./routes/editImage');
+var editFanProfile = require('./routes/editfanprofile');
+var creatorProfile = require('./routes/creatorprofile');
 var app = express();
 
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// app.engine('.hbs', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
@@ -47,6 +51,12 @@ app.use(passport.session());
 
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
+  if(req.isAuthenticated()){
+    res.locals.imagePath = req.user.imagepath;
+    res.locals.email = req.user.email;
+    res.locals.name = req.user.name;
+    res.locals.description = req.user.description;
+  }
   next();
 });
 
@@ -70,7 +80,8 @@ app.use('/profile', profileRouter);
 app.use('/logout', logoutRouter);
 app.use('/learn', learnRouter);
 app.use('/explore', exploreRouter);
-
+app.use('/editfanprofile', editFanProfile);
+app.use('/creatorprofile', creatorProfile);
 app.use('/api/fantipper', apiRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
