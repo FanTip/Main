@@ -1,75 +1,98 @@
 <div class="container" >
     {{csrfToken}}
-    <p>{{text}}</p>
-    
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <img src="{{imagePath}}" alt="user profile picture" class="rounded-circle" height="200px" width="200px">
-            <a href="/editImage" class="glyphicon glyphicon-pencil">Change</a>
+    <div class="row" style="margin-top:1%;">
+        <div class="col-lg-3" style="border-right : 1px double gray">
+            <ul class="list-group">
+                <li class="list-group">
+                    <span><img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px">
+                    <a href="/editImage" class="glyphicon glyphicon-pencil"></a></span>
+                    {{name}}
+                </li>
+                <li class="list-group">
+                    <a href="">Tip History</a>
+                </li>
+                <li class="list-group">
+                    <a href="/editfanprofile">Edit Profile</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li class="list-group">
+                    {{#if isCreator}}
+                        <a href="/creatorprofile">Go to Creator Profile</a>
+                        {{else}}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCreatorProfile" >Add Creators Profile</button>
+                    {{/if}}
+                </li>
+            </ul>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <form action="/editfanprofile" method="POST">
-                <div class="form-row">
-                    <div class="form-group col-md-9">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" class="form-control" id="name" value="{{name}}">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <button type="button" class="btn btn-primary float-sm-right" data-toggle="modal" data-target="#changePassword">Change Password</button>
-                    </div>
+        <div class="col-lg-9">
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <img src="{{imagePath}}" alt="user profile picture" class="rounded-circle" height="200px" width="200px">
+                    <a href="/editImage" class="glyphicon glyphicon-pencil">Change</a>
                 </div>
-                
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" value="{{email}}">
-                </div>
-                <div class="form-group">
-                        <label for="description">Tell us about yourself...</label>
-                        {{# if login}}
-                            <textarea name="description" class="form-control" id="description" rows="3" t cols="">{{description}}</textarea>
-                        {{else}}
-                            <textarea name="description" class="form-control" id="description" placeholder="" rows="3"  cols=""></textarea>
-                        {{/if}}
-                </div>
-                
-                
-                <div class="form-group">
-                    <a class="btn btn-info" href="#collapseCardDetails" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Payment options
-                    </a>
-                    <div class="collapse" id="collapseCardDetails">
-                        {{# if cardOptions}}
-                            <div class="form-group">
-                                <label for="nameonthecard">Name on the card</label>
-                                <input type="text" name="nameonthecard" id="nameonthecard" class="form-control"/>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form action="/editfanprofile" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-9">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" class="form-control" id="name" value="{{name}}">
                             </div>
-                            <div class="form-group">
-                                <label for="cardnumber">Card number</label>
-                                <input type="text" name="cardnumber" id="cardnumber" class="form-control">
+                            <div class="form-group col-md-3">
+                                <button type="button" class="btn btn-primary float-sm-right" data-toggle="modal" data-target="#changePassword">Change Password</button>
                             </div>
-                            <div class="form-group">
-                                <label for="expirydate">Expiry date</label>
-                                <input type="text" name="expirydate" id="expirydate" class="form-control">
-                            </div>
-                        {{else}}
-                            <div class="card card-body">
-                                <span class="glyphicon glyphicon-plus-sign"><p>Add a new card</p></span>
-                            </div>
-                        {{/if}}
+                        </div>
                         
-                    </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control" id="email" value="{{email}}">
+                        </div>
+                        <div class="form-group">
+                                <label for="description">Tell us about yourself...</label>
+                                {{# if login}}
+                                    <textarea name="description" class="form-control" id="description" rows="3" t cols="">{{description}}</textarea>
+                                {{else}}
+                                    <textarea name="description" class="form-control" id="description" placeholder="" rows="3"  cols=""></textarea>
+                                {{/if}}
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <a class="btn btn-info" href="#collapseCardDetails" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Payment options
+                            </a>
+                            <div class="collapse" id="collapseCardDetails">
+                                {{# if cardOptions}}
+                                    <div class="form-group">
+                                        <label for="nameonthecard">Name on the card</label>
+                                        <input type="text" name="nameonthecard" id="nameonthecard" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cardnumber">Card number</label>
+                                        <input type="text" name="cardnumber" id="cardnumber" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expirydate">Expiry date</label>
+                                        <input type="text" name="expirydate" id="expirydate" class="form-control">
+                                    </div>
+                                {{else}}
+                                    <div class="card card-body">
+                                        <span class="glyphicon glyphicon-plus-sign"><p>Add a new card</p></span>
+                                    </div>
+                                {{/if}}
+                                
+                            </div>
+                        </div>
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a href="/profile" class="btn btn-danger">Go Back</a>
+                    </form>
                 </div>
-                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="/profile" class="btn btn-danger">Go Back</a>
-            </form>
+            </div>
         </div>
-        
     </div>
-    
     <div class="row">
         <button type="button" class="btn btn-danger float-sm-right" data-toggle="modal" data-target="#deleteAccount">Delete Fan Profile</button>
 

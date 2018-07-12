@@ -3,7 +3,7 @@
   <head>
     <title>{{title}}</title>
     {{!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> --}}
-    <link href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" rel="stylesheet">
+    {{!-- <link href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" rel="stylesheet"> --}}
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/css/bootstrap.min.css'/>
     <link rel='stylesheet' href='/stylesheets/fanpagestyle.css'>
@@ -11,46 +11,41 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <script src="/javascripts/setting_1.js"></script>
   </head>
   <body>
 
     <div class="modal fade" id="createCreatorProfile" tabindex="-1" role="dialog" aria-labelledby="createCreatorProfileLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Creating a Creators Profile!</h4>
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                
-                                <div class="modal-body">
-                                    <form action="/creatorprofile/create" method="POST">
-                                        <div class="form-group">
-                                            <label for="currentpassword">Current Password</label>
-                                            <input type="password" name="currentpassword" id="currentpassword" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="newpassword">New Password</label>
-                                            <input type="password" name="newpassword" id="newpassword" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="confirmpassword">Confirm Password</label>
-                                            <input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
-                                        </div>
-                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                        <button type="reset" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                        
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Creating a Creators Profile!</h4>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+          </div>                    
+          <div class="modal-body">
+            <form action="/creatorprofile/create" method="POST">
+                <div class="form-group">
+                  <label for="creator_name">Creator Name</label> <br>
+                  <input type="text" id="creator_name" name="creator_name" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="creator_email">Email</label> <br>
+                  <input type="email" id="creator_email" name="creator_email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="creator_description">Description</label> <br>
+                  <input type="text" id="creator_description" name="creator_description" class="form-control">
+                </div>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                <button type="submit" class="btn btn-success">Request Creator Profile</button>
+            </form>
+          </div>
+          <div class="modal-footer"></div>                   
+        </div>
+      </div>
+    </div>
 
 
         <script src="https://cdn.rawgit.com/download/glyphicons/0.1.0/glyphicons.js"></script>
@@ -97,8 +92,16 @@
                       <div class="dropdown-divider"></div>
                       <li><a href="#"> <i class="fa fa-chart-area"></i> &#160; Tip History</a></li>
                       <li><a href="/profile"> <span class="glyphicon glyphicon-user"></span> &#160; Your Profile</a></li>
-                      <div class="dropdown-divider"></div>
-                      <li><a href="#" data-toggle="modal" data-target="#createCreatorProfile" > <span class="glyphicon glyphicon-plus-sign"></span> &#160; Become Creator</a></li>
+                      
+                      {{#if isCreator}}
+                        <div class="dropdown-divider"></div>
+                        <li> <a href="/creatorprofile">Creator Profile</a></li>
+                      {{else}}
+                        <div class="dropdown-divider"></div>
+                        <li><a href="#" data-toggle="modal" data-target="#createCreatorProfile" > <span class="glyphicon glyphicon-plus-sign"></span> &#160; Become Creator</a></li>
+                      
+                      {{/if}}
+                      
                       <div class="dropdown-divider"></div>
                       <li><a href="/logout"> <span class="glyphicon glyphicon-log-out"></span> &#160; Logout</a></li>
                     </ul>
@@ -108,10 +111,12 @@
             {{else}}
               <ul class="navbar-nav navbar-right my-2 my-lg-0">
                 <li class="nav-item">
-                  <a href="/login" class="btn btn-light">LOG IN</a>
+                  <a href="" class="btn btn-light float-sm-right" data-toggle="modal" data-target="#login">LOG IN</a>
+                  {{!-- <button type="button" class="btn btn-primary float-sm-right" data-toggle="modal" data-target="#login">Login</button> --}}
                 </li>
                 <li class="nav-item">
-                  <a href="/signup" class="btn btn-success">SIGN UP</a>
+                  <a href="" class="btn btn-success float-sm-right" data-toggle="modal" data-target="#signup">SIGN UP</a>
+
                 </li>
                 
               </ul>
@@ -130,6 +135,95 @@
             {{!-- </nav> --}}
           {{!-- </div> --}}
         </nav>
+
+        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="LoginLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                     <h3>Log in</h3>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <p>Don't have a FanTipper account? <a href="">Sign Up!</a></p>
+                                      <div class="form-group">
+                                        <button type="button" class="btn btn-primary form-control" name="button">Login with Facebook</button>
+                                        <button type="button" class="btn btn-danger form-control" name="button">Login with Google</button>
+                                        <p>We'll never post anything on Facebook without your permission.</p>
+                                      </div>
+                                    <form class="" action="/login" method="post">
+                                      <div class="form-group">
+                                        <input name="email" type="email" id="email" placeholder="Email" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <input name="password" type="password" id="password" placeholder="Password" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="checkbox" name="checkbox" value="1"> Remember me?
+                                        <a href="#">Forgot password?</a>
+                                      </div>
+                                      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                      <button type="submit" class="btn btn-success form-control" name="button">Login</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                        
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="SignupLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                     <h3>Sign Up</h3>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <p>Don't have a FanTipper account? <a href="">Sign Up!</a></p>
+                                      <div class="form-group">
+                                        <button type="button" class="btn btn-primary form-control" name="button">Login with Facebook</button>
+                                        <button type="button" class="btn btn-danger form-control" name="button">Login with Google</button>
+                                        <p>We'll never post anything on Facebook without your permission.</p>
+                                      </div>
+                                    <form class="" action="/signup" method="post">
+                                      <div class="form-group">
+                                        <input name="name" type="text" id="name" placeholder="Name" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <input name="email" type="email" id="email" placeholder="Email" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <input name="password" type="password" id="password" placeholder="Password" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="checkbox" name="checkbox" value="1"> Remember me?
+                                        <a href="#">Forgot password?</a>
+                                      </div>
+                                      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                      <button type="submit" class="btn btn-success form-control" name="button">SignUp</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                        
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+
+            
 
     {{{body}}}
     <script src='/js/jquery.min.js'></script>

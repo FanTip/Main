@@ -1,7 +1,7 @@
 <div class="container">
     {{csrfToken}}
     <div class="row" style="margin-top:1%;">
-        <dir class="col-sm-3">
+        <dir class="col-sm-3" style="border-right : 1px double gray">
             <ul class="list-group">
                 <li class="list-group">
                     <span><img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px">
@@ -16,7 +16,11 @@
                 </li>
                 <div class="dropdown-divider"></div>
                 <li class="list-group">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCreatorProfile" >Add Creators Profile</button>
+                    {{#if isCreator}}
+                        <a href="/creatorprofile">Go to Creator Profile</a>
+                        {{else}}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCreatorProfile" >Add Creators Profile</button>
+                    {{/if}}
                 </li>
             </ul>
         </dir>
@@ -51,54 +55,12 @@
                 </form>
         </div>
     </div>
-
-    <div class="modal fade" id="createCreatorProfile" tabindex="-1" role="dialog" aria-labelledby="createCreatorProfileLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Creating a Creators Profile!</h4>
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                
-                                <div class="modal-body">
-                                    <form action="/creatorprofile/create" method="POST">
-                                        <div class="form-group">
-                                            <label for="currentpassword">Current Password</label>
-                                            <input type="password" name="currentpassword" id="currentpassword" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="newpassword">New Password</label>
-                                            <input type="password" name="newpassword" id="newpassword" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="confirmpassword">Confirm Password</label>
-                                            <input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
-                                        </div>
-                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                        <button type="reset" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                        
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
 </div>
 <script>
-function copyFunction() {
-  var copyText = document.getElementById("staticEmail");
-  copyText.select();
-  document.execCommand("copy");
-  alert("Copied the text: " + copyText.value);
-}
+    function copyFunction() {
+    var copyText = document.getElementById("staticEmail");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied the text: " + copyText.value);
+    }
 </script>

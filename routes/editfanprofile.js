@@ -29,7 +29,6 @@ router.post('/', function(req, res, next){
 // Delete the account 
 router.post('/delete', isLoggedIn, function(req, res, next){
   User.findByIdAndRemove(req.user._id, function(err){
-    console.log('here');
     if(err){
       res.send(err);
     }

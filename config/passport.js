@@ -54,6 +54,11 @@ passport.use('local.signup', new LocalStrategy({
         newUser.offers = null;
         newUser.imagepath = '/images/example.jpg';
         newUser.description = 'Tell us little bit about yourself';
+        newUser.creator.isCreator = false;
+        newUser.creator.creatorName = 'None provided';
+        newUser.creator.creatorUrl = 'None provided';
+        newUser.creator.creatorLocation = 'None provided';
+        newUser.creator.creatorEmail = 'None Provided';
         
         console.log(req.param('name'));
         newUser.save(function(err, result){

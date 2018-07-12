@@ -4,6 +4,9 @@ const path = require('path');
 var csrf = require('csurf');
 var csrfProtection = csrf();
 
+//Configeration of the Multer package
+//---Location of the files saved
+//---Name pattern of the each profile image
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function(req, filename, callback){
@@ -11,6 +14,14 @@ const storage = multer.diskStorage({
     }
 });
 
+const creatorTileStorage = multer.diskStorage({
+    destination : './public/uploads/tileImages',
+    filename : function(req, filename, callback){
+        callback(null, filename.filename + '-' + req.user.email + path.extname(filename.originalname));
+    }
+});
+
+//Multer configerations (File size and the callback functions)
 const upload = multer({
     storage : storage,
     limits: {fileSize : 1000000},
@@ -20,6 +31,16 @@ const upload = multer({
     }
 }).single('profileImage');
 
+const uploadTile = multer({
+    storage : creatorTileStorage,
+    limits : {fileSize : 1000000},
+    fileFilter:function(req, filename, callback){
+        checkFileType(filename, callback);
+    }
+}).single('tileImage');
+
+
+//storing the csrf token in the session cookie
 csrf({cookie:true});
 
 function checkFileType(filename, callback){

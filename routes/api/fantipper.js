@@ -2,6 +2,12 @@ var user = require('../../models/user');
 var express = require('express');
 var router = express.Router();
 
+
+router.get('/:url', function(req, res){
+    var url = req.params.url;
+    res.render('./fanprofiles/fans');
+});
+
 router.get('/:email/:password', function(req, res){
     console.log(req.params.email);
     console.log(req.params.password);

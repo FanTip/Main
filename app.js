@@ -56,6 +56,12 @@ app.use(function(req, res, next){
     res.locals.email = req.user.email;
     res.locals.name = req.user.name;
     res.locals.description = req.user.description;
+    if(req.user.creator.isCreator){
+      console.log('creator profile made');
+      res.locals.isCreator = req.user.creator.isCreator;
+      res.locals.CreatorName = req.user.creator.creatorName;
+      res.locals.CreatorDescription = req.user.creator.creatorDesc;
+    }
   }
   next();
 });

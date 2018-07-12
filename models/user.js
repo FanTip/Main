@@ -8,7 +8,7 @@ var personSchema = new Schema({
     email:{type: String, required:true},
     username : {type :String},
     password: {type: String, required:true},
-    messages:{type: String},
+    messages:[String],
     offers:{type:String},
     imagepath:{type:String},
     tiphistory:{type:String},
@@ -16,7 +16,21 @@ var personSchema = new Schema({
     numberOfTips:{
                     numberOfCreatorsTipped:{type:Number},
                     totalNumberOfTips:{type:Number}
-                }
+                },
+    creator : {
+        isCreator : {type : Boolean, required : true},
+        creatorName : {type : String, required : true},
+        creatorEmail : {type:String, required : true},
+        creatorUrl : {type : String, required : true},
+        creatorDesc : {type : String},
+        creatorLocation : {type : String, required : true},
+        creatorCategories : [String],
+        creatorTileImage : {type : String},
+        creatorBackgroundImage : {type : String},
+        creatorThumbnail : {type : String},
+        creatorAbout : {type : String}
+    }
+
 });
 
 //encrypting the password

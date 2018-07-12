@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var empty = require('is-empty');
 var fs = require('fs');
+var csrf = require('csurf');
+var csrfProtection = csrf();
+var passport = require('passport');
+
+router.use(csrfProtection);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,7 +34,8 @@ router.get('/', function(req, res, next) {
             title: 'Fantipper', 
             objects: objs,
             name : username,
-            imagePath : imagepath
+            imagePath : imagepath,
+            csrfToken : req.csrfToken()
         });
     });
     
