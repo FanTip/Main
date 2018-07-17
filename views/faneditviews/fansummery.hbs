@@ -1,32 +1,5 @@
-<div class="container">
-    {{csrfToken}}
-    <div class="row" style="margin-top:1%;">
-        <dir class="col-sm-3" style="border-right : 1px double gray">
-            <ul class="list-group">
-                <li class="list-group">
-                    <span><img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px">
-                    <a href="/editImage" class="glyphicon glyphicon-pencil"></a></span>
-                    {{name}}
-                </li>
-                <li class="list-group">
-                    <a href="">Tip History</a>
-                </li>
-                <li class="list-group">
-                    <a href="/editfanprofile">Edit Profile</a>
-                </li>
-                <div class="dropdown-divider"></div>
-                <li class="list-group">
-                    {{#if isCreator}}
-                        <a href="/creatorprofile">Go to Creator Profile</a>
-                        {{else}}
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCreatorProfile" >Add Creators Profile</button>
-                    {{/if}}
-                </li>
-            </ul>
-        </dir>
-        <div class="col-sm-9 ">
-            <h2>Profile</h2>
-                <form action="/profile" class="" method="POST">
+<p>fan edit</p>
+<form action="/profile" class="" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label> <br>
                         <input type="name" readonly class="form-control" name="name" id="name" value="{{name}}">
@@ -53,14 +26,3 @@
                     </div>
                     <a href="/editfanprofile" class="btn btn-primary">Edit Fan Profile</a>
                 </form>
-        </div>
-    </div>
-</div>
-<script>
-    function copyFunction() {
-    var copyText = document.getElementById("staticEmail");
-    copyText.select();
-    document.execCommand("copy");
-    alert("Copied the text: " + copyText.value);
-    }
-</script>

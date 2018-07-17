@@ -5,6 +5,7 @@ var csrfProtection = csrf();
 var passport = require('passport');
 var controller = require('../controller/usercontroller');
 var User = require('../models/user');
+var flash = require('connect-flash');
 
 router.use(csrfProtection);
  
@@ -21,7 +22,7 @@ router.post('/', isLoggedIn, function(req, res, next){
             console.log(err);
         }
         console.log('doc',doc);
-        res.render('profile', { title: 'profile ', 
+        res.render('fan/profile', { title: 'profile ', 
                             url: email,
                             csrfToken : req.csrfToken()
         });
@@ -35,8 +36,9 @@ router.get('/',isLoggedIn, function(req, res, next) {
     console.log('new image', req.user.imagepath);
     var email = req.user.email.substr(0, req.user.email.indexOf('@'));
     console.log(email);
-    res.render('profile', { title: 'profile ', 
-                            
+    req.flash('info', 'Hi there!')
+    res.render('fan/profile', { title: 'profile ', 
+                            body: '/faneditviews/fansummery',
                             url: email,
                             csrfToken : req.csrfToken()
     });

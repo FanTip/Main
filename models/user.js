@@ -17,6 +17,13 @@ var personSchema = new Schema({
                     numberOfCreatorsTipped:{type:Number},
                     totalNumberOfTips:{type:Number}
                 },
+    card:{
+        isCard : {type : Boolean},
+        cardName:{type:String},
+        cardNumber:{type : String},
+        cardExpNum : {type : String},
+        cvvNum : {type :String},
+    },
     creator : {
         isCreator : {type : Boolean, required : true},
         creatorName : {type : String, required : true},

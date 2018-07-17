@@ -7,7 +7,7 @@ router.use(csrfProtection);
 
 /* GET home page. */
 router.get('/',isLoggedIn, function(req, res, next) {
-  res.render('editfanprofile', {title: 'Edit', csrfToken : req.csrfToken()});
+  res.render('fan/editfanprofile', {title: 'Edit', csrfToken : req.csrfToken()});
 });
 
 router.post('/', function(req, res, next){
@@ -15,7 +15,13 @@ router.post('/', function(req, res, next){
   var query = {
     email : req.body.email,
     name : req.body.name,
-    description : req.body.description
+    description : req.body.description,
+    $set : {
+      'card.cardName': req.body.nameonthecard,
+      'card.cardNumber': req.body.cardnumber,
+      'card.cardExpNum': req.body.expirydate,
+      'card.cvvNum' : req.body.cvv
+    }
   }
   User.findByIdAndUpdate(req.user._id, query, function(err, result){
     if(err){
@@ -36,6 +42,25 @@ router.post('/delete', isLoggedIn, function(req, res, next){
     req.session.destroy();
     res.redirect('/');
     
+  });
+});
+
+router.post('/updatecard', isLoggedIn, function(req, res, next){
+  console.log(req.body);
+  User.findByIdAndUpdate(req.user._id,{
+    $set:{'card.isCard' : true,
+    'card.cardName': req.body.nameonthecard,
+    'card.cardNumber': req.body.cardnumber,
+    'card.cardExpNum': req.body.expirydate,
+    'card.cvvNum' : req.body.cvv}
+  }).exec(function(err, result){
+    if(err){
+      res.send(err);
+    }
+    if(result){
+      console.log(result);
+      res.redirect('/editfanprofile');
+    }
   });
 });
 

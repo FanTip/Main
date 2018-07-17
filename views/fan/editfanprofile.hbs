@@ -4,15 +4,30 @@
         <div class="col-lg-3" style="border-right : 1px double gray">
             <ul class="list-group">
                 <li class="list-group">
-                    <span><img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px">
+                    <span><a href="/profile"> <img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px"></a>
                     <a href="/editImage" class="glyphicon glyphicon-pencil"></a></span>
                     {{name}}
                 </li>
                 <li class="list-group">
-                    <a href="">Tip History</a>
+                    <a href="/editfanprofile">Edit Profile</a>
                 </li>
                 <li class="list-group">
-                    <a href="/editfanprofile">Edit Profile</a>
+                    <a href="/notifications">Notifications</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Offers</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Messages</a>
+                </li>
+                <li class="list-group">
+                    <a href="/tip">Tip History</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Account Balance</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Groups</a>
                 </li>
                 <div class="dropdown-divider"></div>
                 <li class="list-group">
@@ -22,13 +37,17 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCreatorProfile" >Add Creators Profile</button>
                     {{/if}}
                 </li>
+                <div class="dropdown-divider"></div>
+                <li class="list-group">
+                        <button type="button" class="btn btn-danger float-sm-right" data-toggle="modal" data-target="#deleteAccount">Delete Fan Profile</button>
+                </li>
             </ul>
         </div>
         <div class="col-lg-9">
             <div class="row justify-content-center">
                 <div class="col-4">
                     <img src="{{imagePath}}" alt="user profile picture" class="rounded-circle" height="200px" width="200px">
-                    <a href="/editImage" class="glyphicon glyphicon-pencil">Change</a>
+                    <a href="/editImage" class="glyphicon glyphicon-pencil float-sm-right">Change</a>
                 </div>
             </div>
             <div class="row">
@@ -40,7 +59,8 @@
                                 <input type="text" name="name" class="form-control" id="name" value="{{name}}">
                             </div>
                             <div class="form-group col-md-3">
-                                <button type="button" class="btn btn-primary float-sm-right" data-toggle="modal" data-target="#changePassword">Change Password</button>
+                                <label for=""> </label>
+                                <button type="button" class="btn btn-primary float-sm-right form-control" data-toggle="modal" data-target="#changePassword">Change Password</button>
                             </div>
                         </div>
                         
@@ -67,19 +87,19 @@
                                 {{# if cardOptions}}
                                     <div class="form-group">
                                         <label for="nameonthecard">Name on the card</label>
-                                        <input type="text" name="nameonthecard" id="nameonthecard" class="form-control"/>
+                                        <input type="text" name="nameonthecard" id="nameonthecard" class="form-control" value="{{cardName}}"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="cardnumber">Card number</label>
-                                        <input type="text" name="cardnumber" id="cardnumber" class="form-control">
+                                        <input type="text" name="cardnumber" id="cardnumber" class="form-control" value="{{cardNumber}}">
                                     </div>
                                     <div class="form-group">
                                         <label for="expirydate">Expiry date</label>
-                                        <input type="text" name="expirydate" id="expirydate" class="form-control">
+                                        <input type="text" name="expirydate" id="expirydate" class="form-control" value="{{cardExp}}">
                                     </div>
                                 {{else}}
                                     <div class="card card-body">
-                                        <span class="glyphicon glyphicon-plus-sign"><p>Add a new card</p></span>
+                                        <span class="glyphicon glyphicon-plus-sign"><p data-toggle="modal" data-target="#updateCardOptions">Add a new card</p></span>
                                     </div>
                                 {{/if}}
                                 
@@ -93,9 +113,56 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <button type="button" class="btn btn-danger float-sm-right" data-toggle="modal" data-target="#deleteAccount">Delete Fan Profile</button>
 
+<div class="modal fade" id="updateCardOptions" tabindex="-1" role="dialog" aria-labelledby="updateCardOptionsLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/editfanprofile/updatecard" method="POST">
+
+                        <div class="modal-header">
+                            <h3>Add Your Card</h3>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                <div class="form-group">
+                                            <label for="nameonthecard">Name on the card</label>
+                                            <input type="text" name="nameonthecard" id="nameonthecard" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cardnumber">Card number</label>
+                                            <input type="text" name="cardnumber" id="cardnumber" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="expirydate">Expiry date</label>
+                                            <input type="text" name="expirydate" id="expirydate" class="form-control">
+                                        </div>
+                                        <div class="foem-group">
+                                            <label for="cvv">CVV number</label>
+                                            <input type="text" name="cvv" id="cvv" class="form-control">
+                                        </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Add your card</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    
         <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="deleteAccountLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -158,7 +225,6 @@
 
 
         
-    </div>
     
     <script>
         var app = angular.module('myApp', []);

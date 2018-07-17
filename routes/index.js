@@ -5,6 +5,7 @@ var fs = require('fs');
 var csrf = require('csurf');
 var csrfProtection = csrf();
 var passport = require('passport');
+var User = require('../models/user');
 
 router.use(csrfProtection);
 
@@ -25,19 +26,32 @@ router.get('/', function(req, res, next) {
             console.log(err);
         }
         
-        var datajson = JSON.parse(data);
-        for (i = 0; i < datajson.data.length; i++) {
-             objs.push(datajson.data[i].imagepath);
+        
+        
+    });
+
+    User.find({'creator.isCreator' : true}).exec(function(err, docs){
+        if(err){
+            console.log(err);
         }
-        console.log(objs[2]);
-        res.render('index', { 
+        if(docs){
+            console.log(docs.length);
+            for (i = 0; i < docs.length; i++) {
+                objs.push(docs[i]);
+           }
+           res.render('index', { 
             title: 'Fantipper', 
             objects: objs,
             name : username,
             imagePath : imagepath,
             csrfToken : req.csrfToken()
         });
+            // console.log(json(docs));
+            // var datajson1 = JSON.parse(docs);
+            // console.log(datajson1);
+        }
     });
+
     
     //res.render('index', { title: 'Fantipper', objects: objs });
 

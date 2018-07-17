@@ -59,6 +59,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.creator.creatorUrl = 'None provided';
         newUser.creator.creatorLocation = 'None provided';
         newUser.creator.creatorEmail = 'None Provided';
+        newUser.card.isCard = false;
         
         console.log(req.param('name'));
         newUser.save(function(err, result){

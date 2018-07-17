@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 const validator = require('express-validator');
 const exphbs = require('express-handlebars');
 var icons = require('glyphicons');
+var favicon = require('serve-favicon');
 
 require('./config/passport');
 
@@ -27,14 +28,18 @@ var learnRouter = require('./routes/learn');
 var editImage = require('./routes/editImage');
 var editFanProfile = require('./routes/editfanprofile');
 var creatorProfile = require('./routes/creatorprofile');
+var selectActiveCreator = require('./routes/selectactivecreator');
 var app = express();
-
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon', 'favicon.ico')));
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 // app.engine('.hbs', exphbs({defaultLayout: 'layout'}));
-app.set('view engine', 'hbs');
+app.set('view engine', 'hbs', exphbs({
+  defaultLayout : 'layout',
+  layoutsDir : 'views/profile'
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -62,6 +67,13 @@ app.use(function(req, res, next){
       res.locals.CreatorName = req.user.creator.creatorName;
       res.locals.CreatorDescription = req.user.creator.creatorDesc;
     }
+    if(req.user.card.isCard){
+      res.locals.cardOptions = req.user.card.isCard;
+      res.locals.cardName = req.user.card.cardName;
+      res.locals.cardNumber = req.user.card.cardNumber;
+      res.locals.cardExp = req.user.card.cardExpNum;
+      res.locals.cardCVV = req.user.card.cvvNum;
+    }
   }
   next();
 });
@@ -88,10 +100,12 @@ app.use('/learn', learnRouter);
 app.use('/explore', exploreRouter);
 app.use('/editfanprofile', editFanProfile);
 app.use('/creatorprofile', creatorProfile);
+app.use('/selectactivecreator', selectActiveCreator);
 app.use('/api/fantipper', apiRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  // next(createError(404));
+  res.render('pagenotfound');
 });
 
 // error handler

@@ -1,0 +1,116 @@
+<div class="container">
+    <input type="hidden" value="{{csrfToken}}">
+    <div class="row">
+        <div class="col-lg-3" style="border-right : 1px double gray">
+            <h2>Creator Profile</h2>
+            <ul class="list-group">
+                <li class="list-group">
+                    <a href="/selectactivecreator">Select Active Creator</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Notifications</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Offers</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Messages</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Tipping History</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Account Balance</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Groups</a>
+                </li>
+                <li class="list-group">
+                    <div class="dropdown-divider"></div>
+                    <a href="/profile">Back to fan profile</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <button class="btn btn-danger float-sm-right" data-toggle="modal" data-target="#deleteAccount">Delete Creator Profile</button>
+            </ul>
+            
+           
+        </div>
+        <div class="col-lg-9">
+            <form action="/selectactivecreator" method="POST">
+                <div class="form-group">Creator Selection Pulldown</div>
+                <div class="form-group">Add New Creator</div>
+                <div class="form-group">Profile Picture</div>
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" class="form-control" id="fullname" name="fullname">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control">
+                </div>
+                <div class="form-group">Categories</div>
+                <div class="form-group">
+                    <label for="shortdesc">Short Description</label>
+                    <input type="text" id="shortdesc" name="shortdesc" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="maintext">Main Text</label>
+                    <input type="text" id="maintext" name="maintext" class="form-control">
+                </div>
+                <div class="form-group">Pictures</div>
+                <div class="form-group">
+                    <label for="creatorurl">Fantipper Creator URL</label>
+                    <input type="text" id="creatorurl" name="creatorurl" class="form-control">
+                    <button class="btn btn-primary">Copy URL</button>
+                    <button  id="shareBtn" class="btn btn-success clearfix">Share</button>
+                </div>
+                <div class="form-group">
+                    <label for="paymentoprions">Payment Options</label>
+                </div>
+                <div class="form-group">
+                    <label for="privacy">Privacy Settings</label>
+                </div>
+                <div class="form-group">
+                    <label for="emailpreference">Email Preference</label>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                </div>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Do you really wish to delete your Creator profile?</h4>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                 
+                    <div class="modal-footer">
+                        <form action="/selectactivecreator/delete" method="POST">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Go back!</button>
+                            <button type="submit" class="btn btn-primary">I'm pretty sure!</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+{{!-- 
+<script>
+document.getElementById('shareBtn').onclick = function() {
+  FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: 'https://developers.facebook.com/docs/',
+  }, function(response){});
+}
+</script> --}}
