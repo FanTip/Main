@@ -5,6 +5,9 @@
             <h2>Creator Profile</h2>
             <ul class="list-group">
                 <li class="list-group">
+                    <span> <a href="/creatorprofile"> <img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px"></a>
+                </li>
+                <li class="list-group">
                     <a href="/selectactivecreator">Select Active Creator</a>
                 </li>
                 <li class="list-group">
@@ -31,39 +34,125 @@
                 </li>
                 <div class="dropdown-divider"></div>
                 <button class="btn btn-danger float-sm-right" data-toggle="modal" data-target="#deleteAccount">Delete Creator Profile</button>
+                 <div class="dropdown-divider"></div>
+                 <a href="">Privacy Settings</a>
             </ul>
             
-           
+           {{CreatorUserName}}
         </div>
-        <div class="col-lg-9">
-            <form action="/selectactivecreator" method="POST">
-                <div class="form-group">Creator Selection Pulldown</div>
-                <div class="form-group">Add New Creator</div>
-                <div class="form-group">Profile Picture</div>
-                <div class="form-group">
+        <div class="col-lg-9" ng-controller = "usernameCtrl"  >
+            <form action="/selectactivecreator" method="POST" ng-init="creator_username = {{CreatorUserName}}">
+                <div class="form-group" ng-model = "creator_username">
                     <label for="fullname">Full Name</label>
-                    <input type="text" class="form-control" id="fullname" name="fullname">
+                    <input type="text" class="form-control" id="fullname" name="fullname" value="{{CreatorName}}">
                 </div>
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" class="form-control">
+                    <input type="text" id="username" name="username" class="form-control"  value="{{CreatorUserName}}">
                 </div>
-                <div class="form-group">Categories</div>
                 <div class="form-group">
                     <label for="shortdesc">Short Description</label>
-                    <input type="text" id="shortdesc" name="shortdesc" class="form-control">
+                    <input type="text" id="shortdesc" name="shortdesc" class="form-control" value="{{CreatorDescription}}">
                 </div>
                 <div class="form-group">
                     <label for="maintext">Main Text</label>
-                    <input type="text" id="maintext" name="maintext" class="form-control">
+                    <input type="text" id="maintext" name="maintext" class="form-control" value="{{CreatorAbout}}">
                 </div>
                 <div class="form-group">Pictures</div>
-                <div class="form-group">
-                    <label for="creatorurl">Fantipper Creator URL</label>
-                    <input type="text" id="creatorurl" name="creatorurl" class="form-control">
-                    <button class="btn btn-primary">Copy URL</button>
+                
+                {{# if CreatorUserName}}
+                <div class="form-group" > 
+                    <label for="basic-url">Your Fantipper URL</label>
+                        <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">fantipper.com/</span>
+                        </div>
+                        <input type="text" id="staticEmail" class="form-control" id="basic-url" readonly aria-describedby="basic-addon3" value="{{CreatorUserName}}">
+                        <small id="emailHelp" class="form-text text-muted">Fantipper personal URL will be your username</small>
+                        </div>
+
+                    <button onclick="copyFunction()" class="btn btn-primary">Copy</button>
                     <button  id="shareBtn" class="btn btn-success clearfix">Share</button>
+
                 </div>
+                {{/if}}
+                
+                
+                <div class="form-group">
+                    <label for="categories">CATEGORIES</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="HOSPITALITY">HOSPITALITY</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="PERSONAL SPONSORSHIP">PERSONAL SPONSORSHIP</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="SCIENCE & RESEARCH">SCIENCE & RESEARCH</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="MUSIC">MUSIC</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="COMEDY">COMEDY</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="FILM & VIDEO">FILM & VIDEO</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="SOFTWARE,APPS & GAMES">SOFTWARE,APPS & GAMES</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="TOURISM">TOURISM</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="EVENTS">EVENTS</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="EDUCATION">EDUCATION</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="DRAWING & PAINTING">DRAWING & PAINTING</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="DANCE & THEATRE">DANCE & THEATRE</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="JOURNALISM & BLOGGING">JOURNALISM & BLOGGING</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="CRAFTS & DIY">CRAFTS & DIY</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="COMMUNITY & SOCIAL SERVICES">COMMUNITY & SOCIAL SERVICES</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="GROUPS & CLUBS">GROUPS & CLUBS</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="SPORTS">SPORTS</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="COMICS">COMICS</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="DESIGN">DESIGN</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="PHOTOGRAPHY">PHOTOGRAPHY</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" id="option" name="name" value="OTHER">OTHER</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="paymentoprions">Payment Options</label>
                 </div>
@@ -73,9 +162,7 @@
                 <div class="form-group">
                     <label for="emailpreference">Email Preference</label>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                </div>
+                
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -104,13 +191,11 @@
                 </div>
             </div>
         </div>
-{{!-- 
 <script>
-document.getElementById('shareBtn').onclick = function() {
-  FB.ui({
-    method: 'share',
-    display: 'popup',
-    href: 'https://developers.facebook.com/docs/',
-  }, function(response){});
-}
-</script> --}}
+    function copyFunction() {
+    var copyText = document.getElementById("staticEmail");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied the text: " + copyText.value);
+    }
+</script>

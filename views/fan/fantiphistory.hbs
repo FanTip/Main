@@ -1,0 +1,54 @@
+<div class="container">
+    {{csrfToken}}
+    <div class="row" style="margin-top:1%;">
+        <dir class="col-sm-3" style="border-right : 1px double gray">
+            <ul class="list-group">
+                <li class="list-group">
+                    <span> <a href="/profile"> <img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px"></a>
+                    <a href="/editImage" class="glyphicon glyphicon-pencil"></a></span>
+                    {{name}}
+                </li>
+                <li class="list-group">
+                    <a href="/editfanprofile">Edit Profile</a>
+                </li>
+                <li class="list-group">
+                    <a href="/notifications">Notifications</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Offers</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Messages</a>
+                </li>
+                <li class="list-group">
+                    <a href="/fantiphistory">Tip History</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Account Balance</a>
+                </li>
+                <li class="list-group">
+                    <a href="">Groups</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li class="list-group">
+                    {{#if isCreator}}
+                        <a href="/creatorprofile">Go to Creator Profile</a>
+                        {{else}}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCreatorProfile" >Add Creators Profile</button>
+                    {{/if}}
+                </li>
+            </ul>
+        </dir>
+        <div class="col-sm-9 ">
+            {{#each tippeedata}}
+            <h2>Tippee Data</h2>
+            <p>{{this}}</p>
+            {{/each}}
+
+            {{#each tipperdata}}
+            <h2>Tipper Data</h2>
+            <p>{{this}}</p>
+            {{/each}}
+        </div>
+    </div>
+</div>

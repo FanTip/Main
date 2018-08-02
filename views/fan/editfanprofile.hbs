@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container"  >
     {{csrfToken}}
     <div class="row" style="margin-top:1%;">
         <div class="col-lg-3" style="border-right : 1px double gray">
@@ -6,7 +6,6 @@
                 <li class="list-group">
                     <span><a href="/profile"> <img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px"></a>
                     <a href="/editImage" class="glyphicon glyphicon-pencil"></a></span>
-                    {{name}}
                 </li>
                 <li class="list-group">
                     <a href="/editfanprofile">Edit Profile</a>
@@ -21,7 +20,7 @@
                     <a href="">Messages</a>
                 </li>
                 <li class="list-group">
-                    <a href="/tip">Tip History</a>
+                    <a href="/fantiphistory">Tip History</a>
                 </li>
                 <li class="list-group">
                     <a href="">Account Balance</a>
@@ -97,6 +96,9 @@
                                         <label for="expirydate">Expiry date</label>
                                         <input type="text" name="expirydate" id="expirydate" class="form-control" value="{{cardExp}}">
                                     </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deleteCard">Edit Card Details</button>
+                                    </div>
                                 {{else}}
                                     <div class="card card-body">
                                         <span class="glyphicon glyphicon-plus-sign"><p data-toggle="modal" data-target="#updateCardOptions">Add a new card</p></span>
@@ -105,64 +107,15 @@
                                 
                             </div>
                         </div>
+                            <div class="dropdown-divider"></div>
                             <input type="hidden" name="_csrf" value="{{csrfToken}}">
                             <button type="submit" class="btn btn-primary">Update</button>
-                            <a href="/profile" class="btn btn-danger">Go Back</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-<div class="modal fade" id="updateCardOptions" tabindex="-1" role="dialog" aria-labelledby="updateCardOptionsLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form action="/editfanprofile/updatecard" method="POST">
-
-                        <div class="modal-header">
-                            <h3>Add Your Card</h3>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                <div class="form-group">
-                                            <label for="nameonthecard">Name on the card</label>
-                                            <input type="text" name="nameonthecard" id="nameonthecard" class="form-control"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="cardnumber">Card number</label>
-                                            <input type="text" name="cardnumber" id="cardnumber" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expirydate">Expiry date</label>
-                                            <input type="text" name="expirydate" id="expirydate" class="form-control">
-                                        </div>
-                                        <div class="foem-group">
-                                            <label for="cvv">CVV number</label>
-                                            <input type="text" name="cvv" id="cvv" class="form-control">
-                                        </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Add your card</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-    
         <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="deleteAccountLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

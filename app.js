@@ -29,6 +29,10 @@ var editImage = require('./routes/editImage');
 var editFanProfile = require('./routes/editfanprofile');
 var creatorProfile = require('./routes/creatorprofile');
 var selectActiveCreator = require('./routes/selectactivecreator');
+var tippingRouter = require('./routes/tippingRouter');
+
+var fanTipHistory = require('./routes/fantiphistory');
+
 var app = express();
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon', 'favicon.ico')));
 
@@ -66,6 +70,9 @@ app.use(function(req, res, next){
       res.locals.isCreator = req.user.creator.isCreator;
       res.locals.CreatorName = req.user.creator.creatorName;
       res.locals.CreatorDescription = req.user.creator.creatorDesc;
+      res.locals.CreatorUserName = req.user.creator.creatorNameuser;
+      res.locals.CreatorURL = req.user.creator.creatorUrl;
+      res.locals.CreatorAbout = req.user.creator.creatorAbout;
     }
     if(req.user.card.isCard){
       res.locals.cardOptions = req.user.card.isCard;
@@ -101,7 +108,10 @@ app.use('/explore', exploreRouter);
 app.use('/editfanprofile', editFanProfile);
 app.use('/creatorprofile', creatorProfile);
 app.use('/selectactivecreator', selectActiveCreator);
+app.use('/tipping', tippingRouter);
 app.use('/api/fantipper', apiRouter);
+
+app.use('/fantiphistory', fanTipHistory);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   // next(createError(404));

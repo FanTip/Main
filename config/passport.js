@@ -1,7 +1,7 @@
 var passport = require('passport'); //requiring the passport package
 var User = require('../models/user'); //requiring the user model
 var LocalStrategy = require('passport-local').Strategy; //requiring the passport local strategy
-
+var mongoose = require('mongoose');
 //Serializing the user
 passport.serializeUser(function(user, done){
     done(null, user.id);
@@ -14,6 +14,8 @@ passport.deserializeUser(function(id, done){
         done(err, user);
     });
 });
+
+
 
 //implementation of the local strategy for the user signup
 passport.use('local.signup', new LocalStrategy({
@@ -45,8 +47,10 @@ passport.use('local.signup', new LocalStrategy({
             return done(null, false, {message: 'Email is already in use!'});
         }
 
+
         //creating a new user
         var newUser = new User();
+        newUser._id = new mongoose.Types.ObjectId();
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
         newUser.name = req.param('name');
@@ -56,12 +60,15 @@ passport.use('local.signup', new LocalStrategy({
         newUser.description = 'Tell us little bit about yourself';
         newUser.creator.isCreator = false;
         newUser.creator.creatorName = 'None provided';
+        newUser.creator.creatorNameuser = 'None provided';
+        newUser.creator.creatorCategories = null;
         newUser.creator.creatorUrl = 'None provided';
         newUser.creator.creatorLocation = 'None provided';
         newUser.creator.creatorEmail = 'None Provided';
+        newUser.creator.creatorTileImage = '/images/example.jpg';
         newUser.card.isCard = false;
-        
-        console.log(req.param('name'));
+
+        console.log('nme::',req.param('name'));
         newUser.save(function(err, result){
             if(err){
                 return done(err);

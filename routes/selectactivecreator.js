@@ -11,6 +11,25 @@ router.get('/', isLoggedIn, function(req, res, next) {
   res.render('creator/selectactivecreator', { title: 'Express', csrfToken : req.csrfToken() });
 });
 
+router.post('/', function(req, res, next){
+  console.log(req.body);
+  User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set:{
+      'creator.creatorName' : req.body.fullname,
+      'creator.creatorDesc' : req.body.shortdesc,
+      'creator.creatorNameuser' : req.body.username
+      }
+    }
+  ).exec(function(err, result){
+    if(err){
+      console.log(err);
+    }
+  });
+  res.redirect('/selectactivecreator');
+});
+
 router.post('/delete', isLoggedIn, function(req, res, next){
 
   User.findByIdAndUpdate(req.user._id,

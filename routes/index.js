@@ -7,7 +7,12 @@ var csrfProtection = csrf();
 var passport = require('passport');
 var User = require('../models/user');
 
+var verifier = require('email-verify');
+var infoCodes = verifier.infoCodes;
+
 router.use(csrfProtection);
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,7 +25,7 @@ router.get('/', function(req, res, next) {
         imagepath = req.user.imagepath;
     }
     var objs = [];
-  
+    console.log(res.locals.CreatorUserName);
     fs.readFile('public\\javascripts\\support.js', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
@@ -29,6 +34,11 @@ router.get('/', function(req, res, next) {
         
         
     });
+
+
+
+    
+    
 
     User.find({'creator.isCreator' : true}).exec(function(err, docs){
         if(err){
@@ -41,7 +51,7 @@ router.get('/', function(req, res, next) {
            }
            res.render('index', { 
             title: 'Fantipper', 
-            objects: objs,
+            objects: JSON.stringify(objs),
             name : username,
             imagePath : imagepath,
             csrfToken : req.csrfToken()

@@ -64,6 +64,24 @@ router.post('/updatecard', isLoggedIn, function(req, res, next){
   });
 });
 
+router.post('/deletecard', isLoggedIn, function(req, res, next){
+  User.findByIdAndUpdate(req.user._id,{
+    $set:{'card.isCard' : false,
+    'card.cardName': "",
+    'card.cardNumber': "",
+    'card.cardExpNum': "",
+    'card.cvvNum' :""}
+  }).exec(function(err, result){
+    if(err){
+      res.send(err);
+    }
+    if(result){
+      console.log(result);
+      res.redirect('/editfanprofile');
+    }
+  });
+});
+
 router.post('/changepassword', isLoggedIn, function(req, res, next){
   if(req.user.validPassword(req.body.currentpassword)){
     var newEncryptedPassword = req.user.encryptPassword(req.body.newpassword);

@@ -4,19 +4,27 @@ var bcrypt = require('bcrypt-nodejs');
 
 
 var personSchema = new Schema({
+    _id : Schema.Types.ObjectId,
     name: {type: String, required:true},
     email:{type: String, required:true},
     username : {type :String},
     password: {type: String, required:true},
-    messages:[String],
+    messages:[{type:Schema.Types.ObjectId, ref:'Message'}],
     offers:{type:String},
     imagepath:{type:String},
-    tiphistory:{type:String},
+    tippeehistory:[{
+        type : Schema.Types.ObjectId,
+        ref : 'tippee'
+      }]
+    ,
+    tipperhistory:[{
+        type : Schema.Types.ObjectId,
+        ref : 'tipper'
+      }]
+    ,
+
     description:{type:String},
-    numberOfTips:{
-                    numberOfCreatorsTipped:{type:Number},
-                    totalNumberOfTips:{type:Number}
-                },
+
     card:{
         isCard : {type : Boolean},
         cardName:{type:String},
@@ -27,16 +35,19 @@ var personSchema = new Schema({
     creator : {
         isCreator : {type : Boolean, required : true},
         creatorName : {type : String, required : true},
+        creatorNameuser : {type : String, required : true},
         creatorEmail : {type:String, required : true},
         creatorUrl : {type : String, required : true},
         creatorDesc : {type : String},
         creatorLocation : {type : String, required : true},
-        creatorCategories : [String],
+        creatorCategories :[],
         creatorTileImage : {type : String},
         creatorBackgroundImage : {type : String},
         creatorThumbnail : {type : String},
         creatorAbout : {type : String}
-    }
+    },
+
+
 
 });
 

@@ -1,68 +1,161 @@
-
 <div ng-model="hid"></div>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/148051964" width="200%" height="600" frameborder="0" ></iframe>
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/148051964" width="200%" height="600" frameborder="0" ></iframe>
+         </div>
+      </div>
+   </div>
+   {{# if login}}
+   {{else}}
+   <div class="row">
+      <div class="col-lg-12">
+         <h3 class="text-center">Give and receive cashless tips with </h3>
+         <h3 class="text-center">FanTipper.</h3>
+         <h4 class="text-center"><a href="">Android</a> and <a href="">iOS</a> app now available.</h4>
+      </div>
+      <div class="col-lg-12 text-center">
+         <button class="btn btn-primary">Find out more</button>
+         <h5> OR </h5>
+         <button class="btn btn-primary">Get Involved</button>
+      </div>
+   </div>
+   {{/if}}
+   <div class="row">
+      <div class="col-mg-12">
+         Description
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="" id="search">
+            <div class="bg-grey p-4">
+               <form class="form-inline my-2 my-lg-12">
+                  <input class="form-control mr-sm-1" ng-model='searchText' type="search" placeholder="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-12" type="submit">Search</button>
+               </form>
             </div>
-        </div>
-    </div>
-
-    {{# if login}}
-       
-    {{else}}
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="text-center">Give and receive cashless tips with </h3>
-                <h3 class="text-center">FanTipper.</h3>
-                <h4 class="text-center"><a href="">Android</a> and <a href="">iOS</a> app now available.</h4>
+         </div>
+      </div>
+   </div>
+   
+   <div ng-controller="myCtrl as m">
+      <p ng-init = "users = {{objects}}"></p>
+      <div ng-repeat="user in users | filter:searchText">
+         <div class="col-lg-2">
+            <div class="card" style="width:18rem; height:30rem" >
+               <img src="{[{user.creator.creatorTileImage}]}" class="card-img-top" alt="">
+               <div class="card-body">
+                  <h5 class="card-title">{[{user.creator.creatorName}]}</h5>
+                  <p class="card-text text-truncate">{[{user.creator.creatorDesc}]}</p>
+                  <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#tipCreator" ng-click="edit(user)">Fantip</button>
+               </div>
             </div>
-            <div class="col-lg-12 text-center">
-                <button class="btn btn-primary">Find out more</button><h5> OR </h5><button class="btn btn-primary">Get Involved</button>
+         </div>
+      </div>
+      <div class="modal fade" id="tipCreator" tabindex="-1" role="dialog" aria-labelledby="tipCreatorLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">Fantip {[{header}]}</h4>
+                  <button class="close" ng-click="hideGuest();" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <form action="/tipping/sendtip" method="POST">
+                     <div class="row">
+                        <div class="col-lg-3">
+                           <img src="{[{image}]}" alt="" class="rounded-circle" height="100px" width="100px">
+                        </div>
+                        <div class="col-lg-9">
+                           <div class="form-group">
+                              <label for="tipamout">HOW MUCH WOULD YOU LIKE TO TIP?</label>
+                              <input type="text" name="tipamout"  id="tipamout" value="{[{tip}]}" class="form-control">
+                           </div>
+                           <div class="form-group">
+                              <label class="radio-inline"><input ng-model="tip" type="radio" value="2" name="optradio">2</label>
+                              <label class="radio-inline"><input ng-model="tip" type="radio" value="5" name="optradio">5</label>
+                              <label class="radio-inline"><input ng-model="tip" type="radio" value="10" name="optradio">10</label>
+                              <label class="radio-inline"><input ng-model="tip" type="radio" value="20" name="optradio">20</label>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="dropdown-divider"></div>
+                     <div class="row">
+                        {{# if login}}
+                        <div class="col-lg-2">
+                           <div class="form-group">
+                              <label for="">Tip as:</label>
+                           </div>
+                        </div>
+                        <div class="col-lg-10">
+                           <img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px">
+                           <h4>{{name}}</h4>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="col-lg-12 text-center">
+                           <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                           <input type="hidden" name="_creatorEmail" value="{[{creatorEmail}]}">
+                           <button type="submit" class="btn btn-primary">Send Tip</button>
+                        </div>
+                        {{else}}
+                        <div class="col-lg-12">
+                           <p class="text-center">Have a fantipper account? <a href=""  data-dismiss="modal" data-toggle="modal" data-target="#login">LOG IN</a> </p>
+                           <p class="text-center">Or Are you new? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#signup">SIGN UP</a></p>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                           <a href="" ng-click="showGuest();" ng-show="!showForm" class="btn btn-primary text-center" ng-model="showForm">Tip as a guest</a>
+                           <div ng-show="showForm">
+                              <div class="form-group">
+                                 <textarea class="form-control" name="message" id="message" cols="30" rows="3" placeholder="Leave a message of support(optional)..."></textarea>
+                              </div>
+                              <div class="dropdown-divider"></div>
+                              <div class="form-group">
+                                 <input type="text" name="nameoncard" id="nameoncard" placeholder="Name on card" class="form-control">
+                              </div>
+                              <div class="form-group">
+                                 <input type="text" name="cardnumber" id="cardnumber" placeholder="Card number" class="form-control">
+                              </div>
+                              <div class="form-row">
+                                 <div class="col">
+                                    <input type="text" name="cvv" id="cvv" class="form-control" placeholder="CVV">
+                                 </div>
+                                 <div class="col">
+                                    <select class="form-control" id="sel1">
+                                       <option>1</option>
+                                       <option>2</option>
+                                       <option>3</option>
+                                       <option>4</option>
+                                    </select>
+                                 </div>
+                                 <div class="col">
+                                    <select class="form-control" id="sel1">
+                                       <option>1</option>
+                                       <option>2</option>
+                                       <option>3</option>
+                                       <option>4</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <input type="text" placeholder="Email" name="email" id="email" class="form-control">
+                              </div>
+                              {[{creatorEmail}]}
+                              <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                              <input type="hidden" name="_creatorEmail" value="{[{creatorEmail}]}">
+                              <button type="submit" class="btn btn-primary">Send Tip</button>
+                           </div>
+                        </div>
+                        {{/if}}
+                     </div>
+                     <div class="dropdown-divider"></div>
+                     <div class="row">
+                     </div>
+                  </form>
+               </div>
             </div>
-        </div>
-    {{/if}}
-
-    <div class="row">
-        <div class="col-mg-12">
-            Description
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="" id="search">
-                <div class="bg-grey p-4">
-                    <form class="form-inline my-2 my-lg-12">
-                        <input class="form-control mr-sm-1" type="search" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-12" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-            {{#each objects}}
-                <div class="card" style="width: 18rem;">
-                    {{!-- <img class="card-img-top" src="{{this.imagepath}}" alt="image"> --}}
-                    <div class="card-body">
-                        {{!-- <h5 class="card-title">Footpath Thoughts</h5>
-                        <p class="card-text">Spreading good vibes to all you beautiful humans of the world.</p> --}}
-                        <p id = "users">{{this.creator}}</p>
-                        <button class="btn btn-primary" onclick="takeid()">Fantip</button>
-                        <script>
-                            function takeid(){
-                                var creator = document.getElementById('users').innerHTML;
-                                alert(creator);
-                            }
-                        </script>
-                    </div>
-                </div>
-            {{/each}}
-    </div>
-    
-
+         </div>
+      </div>
+   </div>
 </div>
-
-

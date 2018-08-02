@@ -24,8 +24,8 @@ router.post('/updatecreator',isLoggedIn, function(req, res, next){
 });
 
 router.post('/create',isLoggedIn, function(req, res, next){
-    console.log(req.body);
-    console.log(req.user);   
+    console.log('body:',req.body);
+    console.log('user',req.user);   
      req.checkBody('creator_name', 'Invalid Creator name').notEmpty();
      req.checkBody('creator_email', 'Invalid Email address').notEmpty().isEmail();
      if(req.validationErrors()){
@@ -40,7 +40,8 @@ router.post('/create',isLoggedIn, function(req, res, next){
         { $set:{'creator.isCreator' : true,
         'creator.creatorName': req.body.creator_name,
         'creator.creatorDesc': req.body.creator_description,
-        'creator.creatorEmail' : req.body.creator_email
+        'creator.creatorEmail' : req.body.creator_email,
+        'creator.UserName' : req.body.creator_name  
       }
         }
         
@@ -50,7 +51,7 @@ router.post('/create',isLoggedIn, function(req, res, next){
         if(result){
           console.log('updated');
           // res.status(200).send(result);
-          res.redirect('/creatorprofile');
+          res.redirect('/selectactivecreator');
         }
       });
     
