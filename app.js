@@ -12,6 +12,7 @@ const validator = require('express-validator');
 const exphbs = require('express-handlebars');
 var icons = require('glyphicons');
 var favicon = require('serve-favicon');
+var dotenv = require('dotenv');
 
 require('./config/passport');
 
@@ -32,10 +33,12 @@ var selectActiveCreator = require('./routes/selectactivecreator');
 var tippingRouter = require('./routes/tippingRouter');
 
 var fanTipHistory = require('./routes/fantiphistory');
+var creatorTipHistory = require('./routes/creatortiphistory');
 
 var app = express();
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon', 'favicon.ico')));
 
+dotenv.config()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -82,6 +85,10 @@ app.use(function(req, res, next){
       res.locals.cardCVV = req.user.card.cvvNum;
     }
   }
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'api-key,content-type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
 
@@ -111,12 +118,16 @@ app.use('/selectactivecreator', selectActiveCreator);
 app.use('/tipping', tippingRouter);
 app.use('/api/fantipper', apiRouter);
 
+
 app.use('/fantiphistory', fanTipHistory);
+app.use('/creatortiphistory', creatorTipHistory);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   // next(createError(404));
   res.render('pagenotfound');
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -128,6 +139,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+mongoose.connect(process.env.DB_URL);
+mongoose.Promise = global.Promise;
+mongoose.connection
+  .once('open', () => console.log('Database Connected'))
+  .on('error', (err)=> console.log('Mongoose database error' + err))
 
 
 mongoose.connect('mongodb://localhost/FanTipper');

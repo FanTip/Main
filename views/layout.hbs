@@ -12,12 +12,16 @@
       <link rel='stylesheet' href='/css/bootstrap.min.css'/>
       <link rel='stylesheet' href='/stylesheets/fanpagestyle.css'>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular-route.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
       <script src="/javascripts/setting-1.js"></script>
-      <script src="/javascripts/customjquery.js"></script>
+      <script src="/javascripts/jquery-functions.js"></script>
+
    </head>
    <body>
       <!--[if lt IE 9]>
@@ -61,8 +65,8 @@
       <script src="https://cdn.rawgit.com/download/glyphicons/0.1.0/glyphicons.js"></script>
       <div class="collapse" id="search">
          <div class="bg-grey p-4">
-            <form class="form-inline my-2 my-lg-12">
-               <input class="form-control mr-sm-12" type="search" placeholder="Search">
+            <form class="form-inline form-group my-2 my-lg-12">
+               <input class="form-control" type="search" placeholder="Search">
                <button class="btn btn-outline-success my-2 my-sm-12" type="submit">Search</button>
             </form>
          </div>
@@ -121,7 +125,6 @@
             <ul class="navbar-nav navbar-right my-2 my-lg-0">
                <li class="nav-item">
                   <a href="" class="btn btn-light float-sm-right" data-toggle="modal" data-target="#login">LOG IN</a>
-                  {{!-- <button type="button" class="btn btn-primary float-sm-right" data-toggle="modal" data-target="#login">Login</button> --}}
                </li>
                <li class="nav-item">
                   <a href="" class="btn btn-success float-sm-right" data-toggle="modal" data-target="#signup">SIGN UP</a>
@@ -130,20 +133,6 @@
             {{/if}}
          </div>
          <a href="#search" class="btn btn-info" data-toggle="collapse" style="margin-left:1%;">Search</a>
-         {{!-- 
-         <div class="pos-f-t">
-            --}}
-            {{!-- 
-            <nav class="navbar navbar-dark bg-dark"> --}}
-               {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" >
-               <span class="glyphicon glyphicon-search"></span>
-               </button> --}}
-               {{!-- 
-            </nav>
-            --}}
-            {{!-- 
-         </div>
-         --}}
       </nav>
       <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="LoginLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">

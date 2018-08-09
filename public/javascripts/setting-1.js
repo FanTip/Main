@@ -14,8 +14,7 @@ fantipperApp.controller('DemoController', function() {
 
 });
 
-fantipperApp.controller('myCtrl', function($scope, $parse) {
-
+fantipperApp.controller('myCtrl', function($scope, $parse, ) {
   $scope.configg = 'dfdgfd';
   console.log($scope.person);
 

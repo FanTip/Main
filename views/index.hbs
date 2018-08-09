@@ -63,7 +63,8 @@
                   </button>
                </div>
                <div class="modal-body">
-                  <form action="/tipping/sendtip" method="POST">
+                   {{!-- action="/tipping/sendtip" method="POST" --}}
+                  <form id="tipping-form">
                      <div class="row">
                         <div class="col-lg-3">
                            <img src="{[{image}]}" alt="" class="rounded-circle" height="100px" width="100px">
@@ -95,7 +96,7 @@
                         </div>
                         <div class="dropdown-divider"></div>
                         <div class="col-lg-12 text-center">
-                           <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                           <input type="hidden" name="_csrf" id="_csrf" value="{{csrfToken}}">
                            <input type="hidden" name="_creatorEmail" value="{[{creatorEmail}]}">
                            <button type="submit" class="btn btn-primary">Send Tip</button>
                         </div>
@@ -144,7 +145,7 @@
                               {[{creatorEmail}]}
                               <input type="hidden" name="_csrf" value="{{csrfToken}}">
                               <input type="hidden" name="_creatorEmail" value="{[{creatorEmail}]}">
-                              <button type="submit" class="btn btn-primary">Send Tip</button>
+                              <button type="submit" id="send-tip" class="btn btn-primary">Send Tip</button>
                            </div>
                         </div>
                         {{/if}}

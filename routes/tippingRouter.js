@@ -6,14 +6,26 @@ var csrf = require('csurf');
 var csrfProtection = csrf();
 var passport = require('passport');
 var User = require('../models/user');
-
+var toastr = require('toastr');
 var tipper = require('../models/tipper');
 var tippee = require('../models/tippee');
 
 router.use(csrfProtection);
 
+router.post('/', function(req, res, next){
+    console.log('req.body', req.body);
+});
+
+router.get('/',function(req, res, next){
+    res.send('vbhjfbhdjb');
+});
+router.post('/', function(req, res, next){
+console.log(req.body);
+});
 
 router.post('/sendtip', function(req, res, next){
+    res.send('data received!');
+
     if(res.locals.login){
         var tipperData = new tipper({
             tipperID : req.user._id,
@@ -29,7 +41,7 @@ router.post('/sendtip', function(req, res, next){
                 var tippeeData = new tippee({
                     tipeeID : creator._id,
                     tipAmount : req.body.tipamout,
-                    tipFrom : req.body.email,
+                    tipFrom : req.body._creatorEmail,
                     tipMessage : req.body.message,
                     tipDate : Date.now(),
                 });
@@ -57,6 +69,7 @@ router.post('/sendtip', function(req, res, next){
             tipeeData.save(function(err){
                 if(err){ res.send(err);}
                 else{
+                    
                     res.redirect('/');
                 }
                 
@@ -67,64 +80,5 @@ router.post('/sendtip', function(req, res, next){
     }
 });
 
-
-// router.post('/sendtip', function(req, res, next) {
-//     console.log(req.body);
-//     var creator;
-//     var query = {
-//         'tipAmount': req.body.tipamout,
-//         'tipFrom': req.body.email || req.user.email,
-//         'tipDate': Date.now(),
-//         'tipMessage': req.body.message,
-//     }
-//     User.findOne({
-//         'creator.creatorEmail': req.body._creatorEmail
-//     }).exec(function(err, creatorData) {
-//         console.log('reached', Date.now());
-//         console.log('creatorData', creatorData.tiphistory);
-//         if (creatorData) {
-//             console.log('came');
-//             User.findByIdAndUpdate(creatorData._id, {
-//                 $push: {
-//                     'tippeehistory': [query]
-//                 }
-//             }, {
-//                 new: true
-//             }, function(err, result) {
-//                 if (err) {
-//                     console.log('err:', err);
-//                 }
-//                 if (result) {
-//                     console.log(result);
-//                     if (res.locals.login) {
-//                         User.findByIdAndUpdate(req.user._id, {
-//                             $push: {
-//                                 'tipperhistory': {
-//                                     'tipAmount': req.body.tipamout,
-//                                     'tipTo': creatorData._id,
-//                                     'tipDate': Date.now(),
-//                                 }
-//                             }
-//                         }, {
-//                             new: true
-//                         }, function(err, result) {
-//                             console.log(result);
-
-//                         });
-//                     }
-//                     res.redirect('/');
-//                 }
-//             });
-//         }
-
-
-
-
-//     });
-//     console.log('creee', creator);
-
-
-
-// });
 
 module.exports = router;

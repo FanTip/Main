@@ -1,3 +1,4 @@
+
 //The person who gets tipped
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
