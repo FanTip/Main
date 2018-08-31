@@ -140,11 +140,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect(process.env.DB_URL);
-mongoose.Promise = global.Promise;
-mongoose.connection
-  .once('open', () => console.log('Database Connected'))
-  .on('error', (err)=> console.log('Mongoose database error' + err))
+// mongoose.connect(process.env.DB_URL);
+// mongoose.Promise = global.Promise;
+// mongoose.connection
+//   .once('open', () => console.log('Database Connected'))
+//   .on('error', (err)=> console.log('Mongoose database error' + err))
 
 
 mongoose.connect('mongodb://localhost/FanTipper');

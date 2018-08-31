@@ -108,10 +108,10 @@ passport.use('local.signin', new LocalStrategy({
         }
         //if the password is incorrect
         if(!user.validPassword(password)){
-            req.session.errors = 'Incorrect password!';
             return done(null, false, {message: 'Wrong password'});
         }
         req.session.username = email;
         return done(null, user);
     })
 }));
+ 

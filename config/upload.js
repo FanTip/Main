@@ -46,10 +46,7 @@ csrf({cookie:true});
 function checkFileType(filename, callback){
     const fileTypes = /jpeg|jpg|png|gif/;
     const extname = fileTypes.test(path.extname(filename.originalname).toLowerCase());
-    console.log('extname', extname);
     const mimeType = fileTypes.test(filename.mimetype);
-    console.log('filename.mimeType', filename.mimeType);
-    console.log(mimeType && extname);
     if(mimeType && extname){
         return callback(null, true);
     }else{

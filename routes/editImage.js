@@ -13,8 +13,6 @@ router.get('/',isLoggedIn, function(req, res, next) {
 });
 
 router.post('/',isLoggedIn, function(req, res, next){
-    console.log('req', req.body);
-    console.log('req file', req.file);
     upload.upload(req, res, function(err){
         if(err){
             res.render('editImage', {message : err, csrfToken : req.csrfToken()});
@@ -25,8 +23,6 @@ router.post('/',isLoggedIn, function(req, res, next){
                     csrfToken : req.csrfToken()
                 });
             }else{
-                console.log('uploaded');
-
                 var query = {email : req.user.email};
                 var update = {imagepath : `uploads/${req.file.filename}`};
                 newModel.findOneAndUpdate(query, update, function(err, doc){

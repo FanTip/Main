@@ -9,25 +9,25 @@
                     {{name}}
                 </li>
                 <li class="list-group">
-                    <a href="/editfanprofile">Edit Profile</a>
+                    <a href="/editfanprofile"><i class="fas fa-edit"></i>Edit Profile</a>
                 </li>
                 <li class="list-group">
-                    <a href="/notifications">Notifications</a>
+                    <a href="/notifications"><i class="fas fa-envelope"></i>Notifications</a>
                 </li>
                 <li class="list-group">
-                    <a href="">Offers</a>
+                    <a href=""><i class="fas fa-certificate"></i>Offers</a>
                 </li>
                 <li class="list-group">
-                    <a href="">Messages</a>
+                    <a href=""><i class="fas fa-comments"></i>Messages</a>
                 </li>
                 <li class="list-group">
-                    <a href="/fantiphistory">Tip History</a>
+                    <a href="/fantiphistory" id="tiphistory"><i class="fas fa-book"></i>Tip History</a>
                 </li>
                 <li class="list-group">
-                    <a href="">Account Balance</a>
+                    <a href=""><i class="fas fa-money-check-alt"></i>Account Balance</a>
                 </li>
                 <li class="list-group">
-                    <a href="">Groups</a>
+                    <a href=""><i class="fas fa-users"></i>Groups</a>
                 </li>
                 <div class="dropdown-divider"></div>
                 <li class="list-group">
@@ -42,10 +42,15 @@
         <div class="col-sm-9 ">
             <h3>Tippees</h3>
             <div ng-init = "tippees = {{tippeedata}}">
-
                 <table class="table">
                     <thead>
-                        <th scope="col"></th>
+                        <tr>
+                            <th scope="col">Tip date</th>
+                            <th scope="col">Tippee ID</th>
+                            <th scope="col">Tip Amount</th>
+                            <th scope="col">Tip From</th>
+                            <th scope="col">Tip Message</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="singleTippee in tippees ">
@@ -65,14 +70,19 @@
 
                 <table class="table">
                     <thead>
-                        <th scope="col"></th>
+                        <tr>
+                            <th scope="col">Tip date</th>
+                            <th scope="col">Tipper ID</th>
+                            <th scope="col">Tip Amount</th>
+                            <th scope="col">Tip To</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat = "singleTipper in tippers">
-                            <td>{[{singleTipper.tipperID.email}]}</td>
-                            <td>{[{singleTipper.tipTo}]}</td>
                             <td>{[{singleTipper.tipDate}]}</td>
+                            <td>{[{singleTipper.tipperID.email}]}</td>
                             <td>&#36;{[{singleTipper.tipAmount}]}</td>
+                            <td>{[{singleTipper.tipTo}]}</td>
                         </tr>
                     </tbody>
                 </table>

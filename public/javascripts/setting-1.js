@@ -1,6 +1,6 @@
 
 
-var fantipperApp = angular.module('fantipperApp', ["ngRoute"]);
+var fantipperApp = angular.module('fantipperApp', []);
 
 fantipperApp.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -8,26 +8,25 @@ fantipperApp.config(function($interpolateProvider) {
 });
 
 
-fantipperApp.controller('DemoController', function() {
-  this.label = "This binding is brought you by {[{ }]} interpolation symbols.";
-  this.chh = 'uses';
-
-});
-
-fantipperApp.controller('myCtrl', function($scope, $parse, ) {
+fantipperApp.controller('myCtrl',function($scope, $parse, ) {
   $scope.configg = 'dfdgfd';
   console.log($scope.person);
 
   $scope.edit = function(user){
     console.log(user);
     $scope.header = user.creator.creatorName;
+    
     $scope.image = user.creator.creatorTileImage;
-    // $scope.creatorEmail = user.creator.creatorEmail;
     $scope.creatorEmail = user.creator.creatorEmail;
-
+    console.log($scope.header,$scope.image,$scope.creatorEmail);
+    console.log($scope.tip);
   }
 
+  console.log($scope.showForm);
+
   $scope.showGuest = function(){
+    console.log('what the hell');
+
     $scope.showForm = true;
   }
 

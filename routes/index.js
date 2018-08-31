@@ -26,18 +26,6 @@ router.get('/', function(req, res, next) {
     }
     var objs = [];
     console.log(res.locals.CreatorUserName);
-    fs.readFile('public\\javascripts\\support.js', 'utf8', function (err, data) {
-        if (err) {
-            console.log(err);
-        }
-        
-        
-        
-    });
-
-
-
-    
     
 
     User.find({'creator.isCreator' : true}).exec(function(err, docs){
@@ -50,21 +38,14 @@ router.get('/', function(req, res, next) {
                 objs.push(docs[i]);
            }
            res.render('index', { 
-            title: 'Fantipper', 
-            objects: JSON.stringify(objs),
-            name : username,
-            imagePath : imagepath,
-            csrfToken : req.csrfToken()
-        });
-            // console.log(json(docs));
-            // var datajson1 = JSON.parse(docs);
-            // console.log(datajson1);
+                title: 'Fantipper', 
+                objects: JSON.stringify(objs),
+                name : username,
+                imagePath : imagepath,
+                csrfToken : req.csrfToken()
+            });
         }
     });
-
-    
-    //res.render('index', { title: 'Fantipper', objects: objs });
-
 });
 
 module.exports = router;

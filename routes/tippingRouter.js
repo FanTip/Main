@@ -17,22 +17,24 @@ router.post('/', function(req, res, next){
 });
 
 router.get('/',function(req, res, next){
-    res.send('vbhjfbhdjb');
+    User.find(function(err, result){
+        res.send(result);
+    });
 });
 router.post('/', function(req, res, next){
-console.log(req.body);
+    console.log(req.body);
 });
 
 router.post('/sendtip', function(req, res, next){
-    res.send('data received!');
 
     if(res.locals.login){
         var tipperData = new tipper({
             tipperID : req.user._id,
-            tipAmount : req.body.tipamout,
+            tipAmount : req.body._tipamount,
             tipTo : req.body._creatorEmail,
             tipDate : Date.now()
         });
+        console.log(tipperData);
         tipperData.save(function(err){
             if(err){
                 console.log(err);
@@ -40,16 +42,16 @@ router.post('/sendtip', function(req, res, next){
             User.findOne({'creator.creatorEmail':req.body._creatorEmail}).exec(function(err, creator){
                 var tippeeData = new tippee({
                     tipeeID : creator._id,
-                    tipAmount : req.body.tipamout,
+                    tipAmount : req.body._tipamount,
                     tipFrom : req.body._creatorEmail,
-                    tipMessage : req.body.message,
+                    tipMessage : req.body._message,
                     tipDate : Date.now(),
                 });
                 tippeeData.save(function(err){
                     if(err){
                         console.log(err);
                     }else{
-                        res.redirect('/');
+                        res.status(200).send('done');
                     }
                 });
             });
@@ -61,16 +63,17 @@ router.post('/sendtip', function(req, res, next){
             console.log(creator._id);
             var tipeeData = new tippee({
                 tipeeID : creator._id,
-                tipAmount : req.body.tipamout,
-                tipFrom : req.body.email,
-                tipMessage : req.body.message,
+                tipAmount : req.body._tipamount,
+                tipFrom : req.body._email,
+                tipMessage : req.body._message,
                 tipDate : Date.now(),
             });
+            console.log(tipeeData);
             tipeeData.save(function(err){
-                if(err){ res.send(err);}
+                if(err){ res.status(500).send(err);}
                 else{
                     
-                    res.redirect('/');
+                    res.status(200).send('done');
                 }
                 
             });
