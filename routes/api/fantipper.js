@@ -1,7 +1,8 @@
 var user = require('../../models/user');
 var express = require('express');
 var router = express.Router();
-
+var tipper = require('../../models/tipper');
+var tippee = require('../../models/tippee');
 
 router.get('/:url', function(req, res){
     var url = req.params.url;
@@ -61,6 +62,23 @@ router.post('/', function(req, res){
             }
         }
     );
+});
+
+router.get('/tipper', function(req, res, next){
+    var tips;
+    tipper.find({tipperID : req.user._id}).populate('tipperID').exec(function(err, tipper){
+        if(req.xhr){
+            res.status(200).send(tipper);
+        }
+    });
+});
+router.get('/tippee', function(){
+    tippee.find({tipeeID : req.user._id}).populate('tipeeID').exec(function(err, tippee){
+        if(req.xhr){
+            console.log('req',req.xhr);
+            res.status(200).send(tippee);;
+        }
+    });
 });
 
 

@@ -1,5 +1,4 @@
 <div class="container"  >
-    {{csrfToken}}
     <div class="row" style="margin-top:1%;">
         <div class="col-lg-3" style="border-right : 1px double gray">
             <ul class="list-group">
@@ -17,7 +16,7 @@
                     <a href=""><i class="fas fa-certificate"></i>Offers</a>
                 </li>
                 <li class="list-group">
-                    <a href=""><i class="fas fa-comments"></i>Messages</a>
+                    <a href="/messages"><i class="fas fa-comments"></i>Messages</a>
                 </li>
                 <li class="list-group">
                     <a href="/fantiphistory" id="tiphistory"><i class="fas fa-book"></i>Tip History</a>
@@ -103,7 +102,7 @@
                                     </div>
                                 {{else}}
                                     <div class="card card-body">
-                                        <span class="glyphicon glyphicon-plus-sign"><p data-toggle="modal" data-target="#updateCardOptions">Add a new card</p></span>
+                                        <p data-toggle="modal" data-target="#updateCardOptions"><i class="fas fa-credit-card"></i>Add a new card</p>
                                     </div>
                                 {{/if}}
                                 

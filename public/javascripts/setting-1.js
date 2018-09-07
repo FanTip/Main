@@ -9,7 +9,6 @@ fantipperApp.config(function($interpolateProvider) {
 
 
 fantipperApp.controller('myCtrl',function($scope, $parse, ) {
-  $scope.configg = 'dfdgfd';
   console.log($scope.person);
 
   $scope.edit = function(user){
@@ -25,8 +24,6 @@ fantipperApp.controller('myCtrl',function($scope, $parse, ) {
   console.log($scope.showForm);
 
   $scope.showGuest = function(){
-    console.log('what the hell');
-
     $scope.showForm = true;
   }
 

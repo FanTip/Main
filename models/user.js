@@ -5,13 +5,15 @@ var bcrypt = require('bcrypt-nodejs');
 
 var personSchema = new Schema({
     _id : Schema.Types.ObjectId,
+    facebookID: {type : String},
     name: {type: String, required:true},
     email:{type: String, required:true},
     username : {type :String},
-    password: {type: String, required:true},
+    password: {type: String},
     messages:[{type:Schema.Types.ObjectId, ref:'Message'}],
     offers:{type:String},
     imagepath:{type:String},
+    location : {type:String},
     tippeehistory:[{
         type : Schema.Types.ObjectId,
         ref : 'tippee'

@@ -18,11 +18,37 @@ router.get('/', function(req, res, next) {
 });
 
 // authenticate user
-router.post('/', passport.authenticate('local.signup',{
-    successRedirect: '/profile',
-    failureRedirect: '/signup',
-    failureFlash: true
-}));
+// router.post('/', passport.authenticate('local.signup',{
+//     successRedirect: '/profile',
+//     failureRedirect: '/signup',
+//     failureFlash: true
+// }));
+
+router.post('/', passport.authenticate('local.signup', {failWithError : true, failureFlash:true}),
+  function(req, res, next){
+    if(req.xhr){
+      return res.json(req.user);
+    }
+    return res.json('/profile');
+  },
+  function(err, req, res, next){
+    console.log('err', err);
+    console.log(req.flash.error);
+    if(req.xhr){return json(req.session.errors);}
+    return res.redirect('/');
+  }
+);
+
+
+
+// router.post('/', function(req, res, next){
+//   passport.authenticate('local.signup', function(err, user, info){
+//     if(err){ console.log(err);}
+//     if(user){ console.log(user);}
+//     if(info){ console.log(info);}    
+//   });
+// });
+
 
 module.exports = router;
 

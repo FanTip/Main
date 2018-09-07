@@ -20,7 +20,7 @@ $(function(){
         xhr.done(function(response){
             toastr.success('Logged in successfully!');
             $(location).attr('href', '/profile');
-            console.log(response);
+            
         }).fail(function(response){
             console.log(response);
             toastr.error('Check your yousername/password again!');
@@ -28,4 +28,45 @@ $(function(){
 
         console.log(xhr);
     });
+
+    $('#signup-form').on('submit', function(event){
+        event.preventDefault();
+        console.log('dhdd');
+        var csrf = $('#_csrf').val();
+        var name = $('#name').val();
+        var email = $('#signup_email').val();
+        var password = $('#signup_password').val();
+        var _location = $('#location').val();
+        var data = {
+            _csrf : csrf,
+            name : name,
+            email : email,
+            password : password,
+            location : _location
+        }
+        var xhr = $.ajax({
+            type : 'POST',
+            crossDomain : false,
+            data : data,
+            url : '/signup'
+        })
+        xhr.done(function(response){
+            $(location).attr('href', '/profile');
+            toastr.success('Logged in successfully!');
+            console.log(response);
+        }).fail(function(response){
+            toastr.error(response);
+            
+        });
+    });
+
+
+    $('#facebook-button-login').click(function(){
+        $(location).attr('href', '/login/facebook');
+    });
+
+    $('#facebook-button-signup').click(function(){
+        $(location).attr('href', '/login/facebook');
+    });
+
 });

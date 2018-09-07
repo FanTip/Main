@@ -40,6 +40,7 @@
               <img src="{[{user.creator.creatorTileImage}]}" class="card-img-top" alt="">
               <div class="card-body">
                 <h5 class="card-title">{[{user.creator.creatorName}]}</h5>
+                <p>{[{user.location}]}</p>
                 <p class="card-text text-truncate">{[{user.creator.creatorDesc}]}</p>
                 <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#tipCreator" ng-click="edit(user)">Fantip</button>
               </div>
@@ -64,13 +65,27 @@
                         <div class="col-lg-9">
                            <div class="form-group">
                               <label for="tipamout">HOW MUCH WOULD YOU LIKE TO TIP?</label>
+                              <div class="input-group">
+                                  <div class="input-group-prepend"><span class="input-group-text" style="{color: #00d278}">$</span></div>
                               <input type="text" name="tipamout"  id="tipamout" value="{[{tip}]}" class="form-control">
+                              </div>
+                              
                            </div>
-                           <div class="form-group">
-                              <label class="radio-inline"><input ng-model="tip" type="radio" value="2" name="optradio">2</label>
-                              <label class="radio-inline"><input ng-model="tip" type="radio" value="5" name="optradio">5</label>
-                              <label class="radio-inline"><input ng-model="tip" type="radio" value="10" name="optradio">10</label>
-                              <label class="radio-inline"><input ng-model="tip" type="radio" value="20" name="optradio">20</label>
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div class="col-xs-3">
+                                   <label class="radio-inline">2<input ng-model="tip" type="radio" value="2" name="optradio"><span class="checkmark"></span></label>
+                                </div>
+                                <div class="col-xs-3">
+                                   <label class="radio-inline">5<input ng-model="tip" type="radio" value="5" name="optradio"><span class="checkmark"></span></label>
+                                </div>
+                                <div class="col-xs-3">
+                                   <label class="radio-inline">10<input ng-model="tip" type="radio" value="10" name="optradio"><span class="checkmark"></span></label>
+                                </div>
+                                <div class="col-xs-3">
+                                   <label class="radio-inline">20<input ng-model="tip" type="radio" value="20" name="optradio"><span class="checkmark"></span></label>
+                                </div>
+                            </div>    
                            </div>
                         </div>
                      </div>
@@ -113,27 +128,40 @@
                               <div class="form-group">
                                  <input type="text" name="cardnumber" id="cardnumber" placeholder="Card number" class="form-control">
                               </div>
-                              <div class="form-row">
-                                 <div class="col">
-                                    <input type="text" name="cvv"  id="cvv" class="form-control" placeholder="CVV">
-                                 </div>
-                                 <div class="col">
-                                    <select class="form-control" id="sel1">
-                                       <option>1</option>
-                                       <option>2</option>
-                                       <option>3</option>
-                                       <option>4</option>
-                                    </select>
-                                 </div>
-                                 <div class="col">
-                                    <select class="form-control" id="sel1">
-                                       <option>1</option>
-                                       <option>2</option>
-                                       <option>3</option>
-                                       <option>4</option>
-                                    </select>
-                                 </div>
-                              </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" title="Three digits at back of your card" required="" placeholder="CVC">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="cc_exp_mo" size="0">
+                                            <option value="00">MM</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="cc_exp_yr" size="0">
+                                            <option value="yyyy">YYYY</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                              
                               <div class="form-group">
                                  <input type="text" placeholder="Email" name="email" id="email" class="form-control">
                               </div>

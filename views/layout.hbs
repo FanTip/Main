@@ -34,6 +34,7 @@
 
       {{!-- Custom angularjs functions --}}
       <script src="/javascripts/setting-1.js"></script>
+      <script src="/javascripts/setting-2.js"></script>
 
       {{!-- Custom jQuery functions --}}
       <script src="/javascripts/jquery-functions-1.js"></script>
@@ -56,7 +57,7 @@
                   <div class="modal-body">
                         <p>Don't have a FanTipper account? <a href="" data-toggle="modal" data-target="#signup"  data-dismiss="modal">Sign Up!</a></p>
                         <div class="form-group">
-                              <button type="button" class="btn btn-primary form-control" name="button">Login with Facebook</button>
+                              <button type="button" id="facebook-button-login" class="btn btn-primary form-control" name="button"><i class="fab fa-facebook-square"></i>LOGIN WITH FACEBOOK</button>
                         {{!-- <button type="button" class="btn btn-danger form-control" name="button">Login with Google</button> --}}
                               <p id="or"><span>OR</span></p>
                         </div>
@@ -93,19 +94,20 @@
                               <p class="text-center" id="beta">During our beta phase we are accepting creators by invites only. Get involved by requesting an invite</p>
                         <div class="form-group">
                               <hr>
-                              <button type="button" class="btn btn-primary form-control" id="facebook-button" name="button">SIGN UP WITH FACEBOOK</button>
+                              <button type="button" class="btn btn-primary form-control" id="facebook-button-signup" name="button"><i class="fab fa-facebook-square"></i>SIGN UP WITH FACEBOOK</button>
                               <hr>
                         {{!-- <button type="button" class="btn btn-danger form-control" name="button">Login with Google</button> --}}
                         </div>
-                        <form class="" action="/signup" method="post">
-                        <div class="form-group">
+                        {{!-- action="/signup" method="post" --}}
+                        <form class="" id="signup-form">
+                        <div class="form-group" >
                               <input name="name" type="text" id="name" placeholder="Name" class="form-control">
                         </div>
                         <div class="form-group">
-                              <input name="email" type="email" id="email" placeholder="Email" class="form-control">
+                              <input name="email" type="email" id="signup_email" placeholder="Email" class="form-control">
                         </div>
                         <div class="form-group">
-                              <input name="password" type="password" id="password" placeholder="Password" class="form-control">
+                              <input name="password" type="password" id="signup_password" placeholder="Password" class="form-control">
                         </div>
                         <div class="form-group">
                               <input name="confirmpassword" type="password" id="confirmpassword" placeholder="Confirm Password" class="form-control">
@@ -113,8 +115,8 @@
                         <div class="form-group">
                               <input name="location" type="text" id="location" placeholder="Location" class="form-control">
                         </div>
-                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                        <button type="submit" class="btn btn-success form-control" id="signup-button" name="button">SIGN UP</button>
+                        <input type="hidden" name="_csrf" id="_csrf" value="{{csrfToken}}">
+                              <button type="submit" class="btn btn-success form-control" id="signup-button" name="button">SIGN UP</button>
                         </form>
                   </div>
                   <div class="modal-footer">

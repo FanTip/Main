@@ -33,15 +33,42 @@ $(function () {
         });
 
     });
-    $('#tiphistory').on('click', function(){
+
+    // $('#tiphistory').on('click', function(){
+    //     var xhr = $.ajax({
+    //         type : 'GET',
+    //         url : '/fantiphistory',
+    //         crossDomain : false
+    //     });
+    //     console.log(xhr);
+    //     xhr.done(function(response){
+    //         toastr.success(response);
+    //         console.log(response);
+    //     });
+    // });
+
+    $('#tippeeTable').ready(function(){
+        console.log('table');
         var xhr = $.ajax({
             type : 'GET',
-            url : '/fantiphistory',
+            url : '/api/fantipper/tipper',
             crossDomain : false
         });
-        xhr.done(function(response){
-            toastr.success(response);
+        var xhr1 = $.ajax({
+            type : 'GET',
+            url : '/api/fantipper/tippee',
+            crossDomain : false
         });
+        
+        xhr.done(function(response){
+            console.log(response);
+        });
+
+        xhr1.done(function(response){
+            console.log(response);
+        });
+
     });
+
   });
   

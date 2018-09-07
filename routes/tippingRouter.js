@@ -9,6 +9,7 @@ var User = require('../models/user');
 var toastr = require('toastr');
 var tipper = require('../models/tipper');
 var tippee = require('../models/tippee');
+var message = require('../models/message');
 
 router.use(csrfProtection);
 
@@ -27,6 +28,8 @@ router.post('/', function(req, res, next){
 
 router.post('/sendtip', function(req, res, next){
 
+    
+
     if(res.locals.login){
         var tipperData = new tipper({
             tipperID : req.user._id,
@@ -34,17 +37,33 @@ router.post('/sendtip', function(req, res, next){
             tipTo : req.body._creatorEmail,
             tipDate : Date.now()
         });
+        
+        var tipMessage = new message({
+            messageFrom : req.user.email,
+            content : req.body._message,
+            sentDate : Date.now(),
+            isRead : false,
+            reply : {
+                replyFrom : null,
+                replyDate : null,
+                replyContent : null 
+            }
+        });
+
         console.log(tipperData);
         tipperData.save(function(err){
             if(err){
                 console.log(err);
+            }else{
+                tipMessage.save(function(err){
+                    console.log(err);
+                });
             }
             User.findOne({'creator.creatorEmail':req.body._creatorEmail}).exec(function(err, creator){
                 var tippeeData = new tippee({
                     tipeeID : creator._id,
                     tipAmount : req.body._tipamount,
                     tipFrom : req.body._creatorEmail,
-                    tipMessage : req.body._message,
                     tipDate : Date.now(),
                 });
                 tippeeData.save(function(err){
@@ -68,11 +87,27 @@ router.post('/sendtip', function(req, res, next){
                 tipMessage : req.body._message,
                 tipDate : Date.now(),
             });
+
+            var tipMessage = new message({
+                messageFrom : req.body._email,
+                content : req.body._message,
+                sentDate : Date.now(),
+                isRead : false,
+                reply : {
+                    replyFrom : null,
+                    replyDate : null,
+                    replyContent : null
+                }
+            });
             console.log(tipeeData);
             tipeeData.save(function(err){
                 if(err){ res.status(500).send(err);}
                 else{
-                    
+                    tipMessage.save(function(err){
+                        if(err){
+                            console.log(err);
+                        }
+                    });
                     res.status(200).send('done');
                 }
                 

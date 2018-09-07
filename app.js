@@ -15,6 +15,7 @@ var favicon = require('serve-favicon');
 var dotenv = require('dotenv');
 
 require('./config/passport');
+require('./config/facebook-login');
 
 var apiRouter = require('./routes/api/fantipper');
 
@@ -31,6 +32,9 @@ var editFanProfile = require('./routes/editfanprofile');
 var creatorProfile = require('./routes/creatorprofile');
 var selectActiveCreator = require('./routes/selectactivecreator');
 var tippingRouter = require('./routes/tippingRouter');
+var messagRouter = require('./routes/tipmessage');
+
+var facebookRouter = require('./routes/facebook-login');
 
 var fanTipHistory = require('./routes/fantiphistory');
 var creatorTipHistory = require('./routes/creatortiphistory');
@@ -68,6 +72,7 @@ app.use(function(req, res, next){
     res.locals.email = req.user.email;
     res.locals.name = req.user.name;
     res.locals.description = req.user.description;
+    res.locals.location = req.user.location;
     if(req.user.creator.isCreator){
       console.log('creator profile made');
       res.locals.isCreator = req.user.creator.isCreator;
@@ -100,6 +105,7 @@ app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist
 app.use('/js', express.static(path.join(__dirname, 'node_modules/glyphicons/glyphicons.js')));
 // Path to Quill
 app.use('/quill', express.static(path.join(__dirname, 'node_modules/quill/dist')));
+app.use('/typeahead_js', express.static(path.join(__dirname, 'node_modules/typeahead.js/dist')));
 
 
 
@@ -118,7 +124,9 @@ app.use('/selectactivecreator', selectActiveCreator);
 app.use('/tipping', tippingRouter);
 app.use('/api/fantipper', apiRouter);
 
+app.use('/login/facebook', facebookRouter);
 
+app.use('/messages', messagRouter);
 app.use('/fantiphistory', fanTipHistory);
 app.use('/creatortiphistory', creatorTipHistory);
 // catch 404 and forward to error handler

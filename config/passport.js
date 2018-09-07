@@ -34,7 +34,9 @@ passport.use('local.signup', new LocalStrategy({
             req.session.errors = error.msg + '\n' ;
         });
         console.log('errors: ', errors);
+        
         return done(null, false, req.flash('error', messages));
+      
     }
     //finding the user in the database
     User.findOne({'email' : email}, function(err, user){
@@ -44,6 +46,7 @@ passport.use('local.signup', new LocalStrategy({
 
         if(user){ //return an error message if user is already has an account
             req.session.errors = 'Email is already in use!';
+            
             return done(null, false, {message: 'Email is already in use!'});
         }
 
@@ -57,6 +60,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.messages = null;
         newUser.offers = null;
         newUser.imagepath = '/images/example.jpg';
+        newUser.location = req.param('location');
         newUser.description = 'Tell us little bit about yourself';
         newUser.creator.isCreator = false;
         newUser.creator.creatorName = 'None provided';

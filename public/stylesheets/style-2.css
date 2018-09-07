@@ -7,6 +7,30 @@ body {
     -webkit-font-smoothing : antialiased;
     font-family: 'Larsseit';
 }
+input[type=text]:focus {
+    outline: none;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
+}
+input[type=password]:focus {
+    outline: none;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
+}
+select:focus {
+    outline: none;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
+}
+textarea:focus {
+    outline: none;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
+}
+
+h1, h2, h3, h4, h5{
+    font-family: 'Larsseit';
+}
 
 .container{
     margin-left: 0px;
@@ -72,6 +96,9 @@ body {
 .affix + .container-fluid {
     padding-top: 70px;
 }
+
+
+
 
 /* Profile image effects */
 

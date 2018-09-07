@@ -8,7 +8,6 @@ var tipeeSchema = new Schema({
     tipAmount : {type : Number},
     tipFrom : {type : String},
     tipDate : {type : Date},
-    tipMessage : {type : String}
 });
 
 module.exports = mongoose.model(
