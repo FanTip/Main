@@ -61,11 +61,9 @@ $(function () {
         });
         
         xhr.done(function(response){
-            console.log(response);
         });
 
         xhr1.done(function(response){
-            console.log(response);
         });
 
     });

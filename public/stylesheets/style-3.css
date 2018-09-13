@@ -32,6 +32,16 @@
     background-color: #f2f2f2;
 }
 
+#signup #facebook-button-signup{
+    background-color: #3B5998;
+    color: #e4e2e2;
+}
+
+
+#signup #facebook-button-signup:hover{
+    background-color: #0d2e69;
+    color: #e4e2e2;
+}
 
 #signup #beta{
     font-family: 'Larsseit';
@@ -82,6 +92,16 @@
 
 #login a{
     color: #00d178;
+}
+
+#login #facebook-button-login{
+    background-color: #3B5998 ;
+    color: #e4e2e2;
+}
+
+#login #facebook-button-login:hover {
+    background-color: #0d2e69 ;
+    color: #e4e2e2;
 }
 
 #or{

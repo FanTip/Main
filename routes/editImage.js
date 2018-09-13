@@ -17,7 +17,7 @@ router.post('/',isLoggedIn, function(req, res, next){
         if(err){
             res.render('editImage', {message : err, csrfToken : req.csrfToken()});
         }else{
-            if(req.file == undefined){
+            if(!(req.file)){
                 res.render('editImage',{
                     message : 'Error : No file selected!',
                     csrfToken : req.csrfToken()

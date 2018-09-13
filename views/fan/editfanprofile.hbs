@@ -1,10 +1,11 @@
-<div class="container"  >
+<div class="container" id="editfanptofile">
     <div class="row" style="margin-top:1%;">
         <div class="col-lg-3" style="border-right : 1px double gray">
             <ul class="list-group">
                 <li class="list-group">
                     <span><a href="/profile"> <img src="{{imagePath}}" alt="..." class="rounded-circle" height="50px" width="50px"></a>
                     <a href="/editImage" class="glyphicon glyphicon-pencil"></a></span>
+                    {{name}}
                 </li>   
                 <li class="list-group">
                     <a href="/editfanprofile"><i class="fas fa-edit"></i>Edit Profile</a>
@@ -59,10 +60,16 @@
                                 <label for="name">Name</label>
                                 <input type="text" name="name" class="form-control" id="name" value="{{name}}">
                             </div>
+
+                            {{#if facebookID}}
+
+                            {{else}}
                             <div class="form-group col-md-3">
                                 <label for=""> </label>
                                 <button type="button" class="btn btn-primary float-sm-right form-control" data-toggle="modal" data-target="#changePassword">Change Password</button>
                             </div>
+                            {{/if}}
+                            
                         </div>
                         
 

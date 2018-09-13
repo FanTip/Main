@@ -12,6 +12,11 @@ input[type=text]:focus {
     box-shadow: 1px 1px #00d278 !important;
     border:1px solid #00d278 !important;
 }
+input[type=email]:focus {
+    outline: none;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
+}
 input[type=password]:focus {
     outline: none;
     box-shadow: 1px 1px #00d278 !important;
@@ -28,14 +33,59 @@ textarea:focus {
     border:1px solid #00d278 !important;
 }
 
-h1, h2, h3, h4, h5{
+h1, h2, h3, h4, h5, p{
     font-family: 'Larsseit';
 }
+
+.notifications{
+    margin: 10px 10px 10px 10px;
+}
+
+.notifications .messages .fa-envelope{
+    margin-left: 10px;
+}
+.notifications .offers .fa-certificate{
+    margin-left: 10px;
+}
+
+#i{
+    margin-right: 20px;
+}
+
+/* nav{
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+} */
 
 .container{
     margin-left: 0px;
     margin-right: 0px;
     padding: 0px;
+}
+
+#editfanptofile input[type=text]:focus {
+    outline: none;
+    background-color: #00D278;
+    color: azure;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
+}
+#editfanptofile input[type=email]:focus {
+    outline: none;
+    background-color: #00D278;
+    color: azure;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
+}
+#editfanptofile select:focus {
+    outline: none;
+    background-color: #00D278;
+    color: azure;
+    box-shadow: 1px 1px #00d278 !important;
+    border:1px solid #00d278 !important;
 }
 
 .gallery{

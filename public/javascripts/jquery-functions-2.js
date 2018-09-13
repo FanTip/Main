@@ -1,4 +1,6 @@
 $(function(){
+    // JQuery implementation to call login functions in passport
+    // Ajax object is used to pass the authentication 
     $('#login-form').on('submit', function(event){
         event.preventDefault();
         console.log('came here');
@@ -29,6 +31,9 @@ $(function(){
         console.log(xhr);
     });
 
+
+    // JQuery implementation to call the signup functions in the passport
+    // Ajax object is used to pass the authentication 
     $('#signup-form').on('submit', function(event){
         event.preventDefault();
         console.log('dhdd');
@@ -69,4 +74,11 @@ $(function(){
         $(location).attr('href', '/login/facebook');
     });
 
+    $('#google-button-signup').click(function(){
+        $(location).attr('href', '/auth/google');
+    });
+
+    $('#google-button-login').click(function(){
+        $(location).attr('href', '/auth/google');
+    });
 });

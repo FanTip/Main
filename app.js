@@ -16,6 +16,7 @@ var dotenv = require('dotenv');
 
 require('./config/passport');
 require('./config/facebook-login');
+require('./config/google-login');
 
 var apiRouter = require('./routes/api/fantipper');
 
@@ -35,6 +36,7 @@ var tippingRouter = require('./routes/tippingRouter');
 var messagRouter = require('./routes/tipmessage');
 
 var facebookRouter = require('./routes/facebook-login');
+var googleRouter = require('./routes/google-login');
 
 var fanTipHistory = require('./routes/fantiphistory');
 var creatorTipHistory = require('./routes/creatortiphistory');
@@ -81,6 +83,7 @@ app.use(function(req, res, next){
       res.locals.CreatorUserName = req.user.creator.creatorNameuser;
       res.locals.CreatorURL = req.user.creator.creatorUrl;
       res.locals.CreatorAbout = req.user.creator.creatorAbout;
+      res.locals.facebookID = req.user.facebookID;
     }
     if(req.user.card.isCard){
       res.locals.cardOptions = req.user.card.isCard;
@@ -125,6 +128,7 @@ app.use('/tipping', tippingRouter);
 app.use('/api/fantipper', apiRouter);
 
 app.use('/login/facebook', facebookRouter);
+app.use('/auth/google', googleRouter);
 
 app.use('/messages', messagRouter);
 app.use('/fantiphistory', fanTipHistory);
