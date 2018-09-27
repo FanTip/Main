@@ -19,6 +19,7 @@ require('./config/facebook-login');
 require('./config/google-login');
 
 var apiRouter = require('./routes/api/fantipper');
+var searchCitiesRouter = require('./routes/api/search-cities');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -34,6 +35,8 @@ var creatorProfile = require('./routes/creatorprofile');
 var selectActiveCreator = require('./routes/selectactivecreator');
 var tippingRouter = require('./routes/tippingRouter');
 var messagRouter = require('./routes/tipmessage');
+
+var CreatorApplication = require('./routes/creatorProfileCreate');
 
 var facebookRouter = require('./routes/facebook-login');
 var googleRouter = require('./routes/google-login');
@@ -108,7 +111,10 @@ app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist
 app.use('/js', express.static(path.join(__dirname, 'node_modules/glyphicons/glyphicons.js')));
 // Path to Quill
 app.use('/quill', express.static(path.join(__dirname, 'node_modules/quill/dist')));
-app.use('/typeahead_js', express.static(path.join(__dirname, 'node_modules/typeahead.js/dist')));
+
+app.use('/typeahead', express.static(path.join(__dirname, 'node_modules/typeahead.js/dist')));
+
+app.use('/bloodhound', express.static(path.join(__dirname,'node_modules/bloodhound/index.js')));
 
 
 
@@ -125,7 +131,11 @@ app.use('/editfanprofile', editFanProfile);
 app.use('/creatorprofile', creatorProfile);
 app.use('/selectactivecreator', selectActiveCreator);
 app.use('/tipping', tippingRouter);
+
 app.use('/api/fantipper', apiRouter);
+app.use('/api/cities', searchCitiesRouter);
+
+app.use('/creator/application', CreatorApplication);
 
 app.use('/login/facebook', facebookRouter);
 app.use('/auth/google', googleRouter);
