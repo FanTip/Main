@@ -105,17 +105,15 @@ app.use(function(req, res, next){
 
 
 
-app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
-app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
-app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
-app.use('/js', express.static(path.join(__dirname, 'node_modules/glyphicons/glyphicons.js')));
 // Path to Quill
 app.use('/quill', express.static(path.join(__dirname, 'node_modules/quill/dist')));
 
+// Path to typeahead and bloodhound tokenizer
 app.use('/typeahead', express.static(path.join(__dirname, 'node_modules/typeahead.js/dist')));
-
 app.use('/bloodhound', express.static(path.join(__dirname,'node_modules/bloodhound/index.js')));
 
+// Configuration to dropzone
+app.use('/dropzone', express.static(path.join(__dirname, 'node_modules/dropzone/dist')))
 
 
 app.use('/', indexRouter);
@@ -137,12 +135,14 @@ app.use('/api/cities', searchCitiesRouter);
 
 app.use('/creator/application', CreatorApplication);
 
+// login with facebook and google plus
 app.use('/login/facebook', facebookRouter);
 app.use('/auth/google', googleRouter);
 
 app.use('/messages', messagRouter);
 app.use('/fantiphistory', fanTipHistory);
 app.use('/creatortiphistory', creatorTipHistory);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   // next(createError(404));
@@ -161,13 +161,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// mongoose.connect(process.env.DB_URL);
-// mongoose.Promise = global.Promise;
-// mongoose.connection
-//   .once('open', () => console.log('Database Connected'))
-//   .on('error', (err)=> console.log('Mongoose database error' + err))
-
 
 mongoose.connect('mongodb://localhost/FanTipper');
 let db = mongoose.connection;

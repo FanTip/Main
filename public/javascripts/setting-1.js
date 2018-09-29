@@ -9,7 +9,6 @@ fantipperApp.config(function($interpolateProvider) {
 
 
 fantipperApp.controller('myCtrl',function($scope, $parse, ) {
-  console.log($scope.person);
 
   $scope.edit = function(user){
     console.log(user);
